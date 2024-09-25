@@ -2,16 +2,15 @@
 
 namespace Mahalo.Shared.Entities;
 
-public class Disorder
+public class State
 {
-    [Display(Name = "CreationDate")]
-    [Required]
-    public DateTime CreationDate { get; set; }
-
     public int Id { get; set; }
 
-    [Display(Name = "Disorder")]
-    [MaxLength(100)]
+
+    public Country Country { get; set; } = null!;
+
+    [Display(Name = "State")]
+    [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
     public string Name { get; set; } = null!;
 
@@ -19,5 +18,7 @@ public class Disorder
     [Required]
     public bool IsActive { get; set; }
 
-    public ICollection<ResourceDisorder>? ResourceDisorderes { get; set; }
+    [Display(Name = "CreationDate")]
+    [Required]
+    public DateTime CreationDate { get; set; }
 }

@@ -6,6 +6,9 @@ public class Psychologist
 {
     public int Id { get; set; }
 
+
+    public ICollection<City>? City { get; set; }
+
     [Display(Name = "Psychologist")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]

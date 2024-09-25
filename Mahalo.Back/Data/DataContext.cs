@@ -9,8 +9,24 @@ namespace Mahalo.Back.Data
         {
         }
 
+        public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Disorder> Disorders { get; set; }
 
+        public DbSet<DocumentType> DocumentTypes { get; set; }
+        public DbSet<NotificationHistory> NotificationsHistory { get; set; }
+
+        public DbSet<NotificationSchedulingResource> NotificationSchedulingResources { get; set; }
+
+        public DbSet<NotificationSecheduling> NotificationSechedulings { get; set; }
+
+        public DbSet<Psychologist> Psychologists { get; set; }
+
+        public DbSet<Resource> Resources { get; set; }
+
+        public DbSet<ResourceDisorder> ResourcesDisorder { get; set; }
+
+        public DbSet<State> State { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
