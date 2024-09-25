@@ -1,7 +1,6 @@
 ﻿using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.Metrics;
 
 namespace Mahalo.Back.Controllers
 {
@@ -11,7 +10,6 @@ namespace Mahalo.Back.Controllers
     {
         public CountriesController(IGenericUnitOfWork<Country> unitOfWork) : base(unitOfWork)
         {
-
         }
     }
 }

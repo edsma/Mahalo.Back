@@ -2,7 +2,6 @@
 using Mahalo.Back.Repositories.Interfaces;
 using Mahalo.Shared.Response;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Mahalo.Back.Repositories.Implementation
 {
@@ -10,6 +9,7 @@ namespace Mahalo.Back.Repositories.Implementation
     {
         private readonly DataContext _dataContext;
         private readonly DbSet<T> _entity;
+
         public GenericRepository(DataContext context)
         {
             _dataContext = context;
@@ -36,7 +36,6 @@ namespace Mahalo.Back.Repositories.Implementation
             {
                 return ExceptionActionResponse(exception);
             }
-
         }
 
         private ActionResponse<T> ExceptionActionResponse(Exception ex)
@@ -86,7 +85,6 @@ namespace Mahalo.Back.Repositories.Implementation
                     Message = "ERR002"
                 };
             }
-
         }
 
         public virtual async Task<ActionResponse<T>> GetAsync(int id)
@@ -105,7 +103,6 @@ namespace Mahalo.Back.Repositories.Implementation
                 WasSuccess = false,
                 Message = "ERR001"
             };
-
         }
 
         public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync()
@@ -115,7 +112,6 @@ namespace Mahalo.Back.Repositories.Implementation
                 WasSuccess = true,
                 Result = await _entity.ToListAsync()
             };
-
         }
 
         public virtual async Task<ActionResponse<T>> UpdateAsync(T entity)
@@ -138,7 +134,6 @@ namespace Mahalo.Back.Repositories.Implementation
             {
                 return ExceptionActionResponse(exception);
             }
-
         }
     }
 }
