@@ -2,23 +2,21 @@
 
 namespace Mahalo.Shared.Entities
 {
-    public class Country
+    public class NotificationSchedulingResource
     {
         public int Id { get; set; }
 
-        [Display(Name = "CreationDate")]
-        [Required]
-        public DateTime CreationDate { get; set; }
-
-        [Display(Name = "Country")]
+        [Display(Name = "SchedulingDays")]
         [MaxLength(100)]
         [Required]
-        public string Name { get; set; } = null!;
+        public DateTime SchedulingDays { get; set; }
 
         [Display(Name = "IsActive")]
         [Required]
         public bool IsActive { get; set; }
 
+        public Resource? Resource { get; set; }
 
+        public NotificationSecheduling? NotificationSecheduling { get; set; }
     }
 }

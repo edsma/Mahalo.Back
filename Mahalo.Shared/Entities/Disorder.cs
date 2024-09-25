@@ -1,16 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Mahalo.Shared.Entities
 {
-    public class Country
+    public class Disorder
     {
-        public int Id { get; set; }
-
         [Display(Name = "CreationDate")]
         [Required]
         public DateTime CreationDate { get; set; }
 
-        [Display(Name = "Country")]
+        public int Id { get; set; }
+
+        [Display(Name = "Disorder")]
         [MaxLength(100)]
         [Required]
         public string Name { get; set; } = null!;
@@ -19,6 +24,7 @@ namespace Mahalo.Shared.Entities
         [Required]
         public bool IsActive { get; set; }
 
+        public ICollection<ResourceDisorder>? ResourceDisorderes { get; set; }
 
     }
 }
