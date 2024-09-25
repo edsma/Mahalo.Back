@@ -7,9 +7,7 @@ namespace Mahalo.Back.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-
         }
-
 
         public DbSet<Country> Countries { get; set; }
 
@@ -28,6 +26,5 @@ namespace Mahalo.Back.Data
                 relationShip.DeleteBehavior = DeleteBehavior.Restrict;
             }
         }
-
     }
 }

@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Back\\Mahalo.Back.csproj": {}
+    "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Back\\Mahalo.Back.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Back\\Mahalo.Back.csproj": {
+    "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Back\\Mahalo.Back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Back\\Mahalo.Back.csproj",
+        "projectUniqueName": "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Back\\Mahalo.Back.csproj",
         "projectName": "Mahalo.Back",
-        "projectPath": "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Back\\Mahalo.Back.csproj",
-        "packagesPath": "C:\\Users\\yeiyi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Back\\obj\\",
+        "projectPath": "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Back\\Mahalo.Back.csproj",
+        "packagesPath": "C:\\Users\\edwin\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Back\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\yeiyi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\edwin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,8 +33,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Shared\\Mahalo.Shared.csproj": {
-                "projectPath": "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Shared\\Mahalo.Shared.csproj"
+              "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Shared\\Mahalo.Shared.csproj": {
+                "projectPath": "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Shared\\Mahalo.Shared.csproj"
               }
             }
           }
@@ -50,14 +54,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.8, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[8.0.8, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
@@ -86,17 +82,21 @@
         }
       }
     },
-    "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Shared\\Mahalo.Shared.csproj": {
+    "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Shared\\Mahalo.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Shared\\Mahalo.Shared.csproj",
+        "projectUniqueName": "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Shared\\Mahalo.Shared.csproj",
         "projectName": "Mahalo.Shared",
-        "projectPath": "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Shared\\Mahalo.Shared.csproj",
-        "packagesPath": "C:\\Users\\yeiyi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yeiyi\\Documents\\Repositorios\\Construcción\\Mahalo.Shared\\obj\\",
+        "projectPath": "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Shared\\Mahalo.Shared.csproj",
+        "packagesPath": "C:\\Users\\edwin\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\Mahalo\\mahalo.back\\Mahalo.Shared\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\yeiyi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\edwin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
