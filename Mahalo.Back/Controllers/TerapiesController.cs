@@ -6,9 +6,9 @@ namespace Mahalo.Back.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class DocumentTypesController : GenericController<DocumentType>
+public class TerapiesController : GenericController<Country>
 {
-    public DocumentTypesController(IGenericUnitOfWork<DocumentType> unitOfWork) : base(unitOfWork)
+    public TerapiesController(IGenericUnitOfWork<Country> unitOfWork) : base(unitOfWork)
     {
     }
 }

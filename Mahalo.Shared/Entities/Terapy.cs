@@ -6,9 +6,6 @@ public  class Terapy
 {
     public int id { get; set; }
 
-    public City City { get; set; } = null!;
-    public Psychologist Psychologist { get; set;} = null!;
-
     [Display(Name = "HourTerapy")]
     [Required]
     public DateTime HourTerapy { get; set; }
@@ -16,4 +13,6 @@ public  class Terapy
     [Display(Name = "IsActive")]
     [Required]
     public bool IsActive { get; set; }
+    public City City { get; set; } = null!;
+    public Psychologist Psychologist { get; set; } = null!;
 }

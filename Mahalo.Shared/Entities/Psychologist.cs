@@ -7,8 +7,6 @@ public class Psychologist
     public int Id { get; set; }
 
 
-    public ICollection<City>? City { get; set; }
-
     [Display(Name = "Psychologist")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
@@ -43,4 +41,10 @@ public class Psychologist
     [Display(Name = "CreationDate")]
     [Required]
     public DateTime CreationDate { get; set; }
+
+    public double TerapyPrice { get; set; }
+
+    public ICollection<City>? Cities { get; set; }
+
+    public ICollection<Terapy> Terapies { get; set; } = null!;
 }

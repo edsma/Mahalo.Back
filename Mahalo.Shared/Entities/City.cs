@@ -6,12 +6,11 @@ public class City
 {
     public int Id { get; set; }
 
-    public State State { get; set; } = null!;
-
+   
     [Display(Name = "City")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     [Display(Name = "IsActive")]
     [Required]
@@ -21,4 +20,8 @@ public class City
     [Required]
     public DateTime CreationDate { get; set; }
 
+    public ICollection<User>? Users { get; set; }
+
+    public ICollection<Terapy> Terapies { get; set; } = null!;
+    public State State { get; set; } = null!;
 }
