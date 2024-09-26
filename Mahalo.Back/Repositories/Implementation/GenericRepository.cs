@@ -1,5 +1,7 @@
 ﻿using Mahalo.Back.Data;
+using Mahalo.Back.Helpers;
 using Mahalo.Back.Repositories.Interfaces;
+using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Response;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ namespace Mahalo.Back.Repositories.Implementation
     {
         private readonly DataContext _dataContext;
         private readonly DbSet<T> _entity;
+
         public GenericRepository(DataContext context)
         {
             _dataContext = context;
@@ -36,7 +39,6 @@ namespace Mahalo.Back.Repositories.Implementation
             {
                 return ExceptionActionResponse(exception);
             }
-
         }
 
         private ActionResponse<T> ExceptionActionResponse(Exception ex)
@@ -86,7 +88,6 @@ namespace Mahalo.Back.Repositories.Implementation
                     Message = "ERR002"
                 };
             }
-
         }
 
         public virtual async Task<ActionResponse<T>> GetAsync(int id)
@@ -105,7 +106,6 @@ namespace Mahalo.Back.Repositories.Implementation
                 WasSuccess = false,
                 Message = "ERR001"
             };
-
         }
 
         public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync()
@@ -115,7 +115,6 @@ namespace Mahalo.Back.Repositories.Implementation
                 WasSuccess = true,
                 Result = await _entity.ToListAsync()
             };
-
         }
 
         public virtual async Task<ActionResponse<T>> UpdateAsync(T entity)
@@ -138,7 +137,30 @@ namespace Mahalo.Back.Repositories.Implementation
             {
                 return ExceptionActionResponse(exception);
             }
+        }
 
+        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination)
+        {
+            var queryable = _entity.AsQueryable();
+
+            return new ActionResponse<IEnumerable<T>>
+            {
+                WasSuccess = true,
+                Result = await queryable
+                    .Paginate(pagination)
+                    .ToListAsync()
+            };
+        }
+
+        public virtual async Task<ActionResponse<int>> GetTotalRecordsAsync()
+        {
+            var queryable = _entity.AsQueryable();
+            double count = await queryable.CountAsync();
+            return new ActionResponse<int>
+            {
+                WasSuccess = true,
+                Result = (int)count
+            };
         }
     }
 }

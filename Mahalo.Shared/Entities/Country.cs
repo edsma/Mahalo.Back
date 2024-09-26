@@ -23,6 +23,6 @@ namespace Mahalo.Shared.Entities
         [Display(Name = "CreationDate")]
         [Required]
         public DateTime CreationDate { get; set; }
-
+        public object Teams { get; set; }
     }
 }
