@@ -19,5 +19,5 @@ public class Disorder
     [Required]
     public bool IsActive { get; set; }
 
-    public ICollection<ResourceDisorder>? ResourceDisorderes { get; set; }
+    public ICollection<ResourceDisorder>? ResourcesDisorder { get; set; }
 }

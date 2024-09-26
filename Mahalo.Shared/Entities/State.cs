@@ -4,10 +4,7 @@ namespace Mahalo.Shared.Entities;
 
 public class State
 {
-    public int Id { get; set; }
-
-
-    public Country Country { get; set; } = null!;
+    public int Id { get; set; }  
 
     [Display(Name = "State")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
@@ -21,4 +18,8 @@ public class State
     [Display(Name = "CreationDate")]
     [Required]
     public DateTime CreationDate { get; set; }
+
+    public Country Country { get; set; } = null!;
+
+    public ICollection<City>? Cities { get; set; }
 }

@@ -17,5 +17,6 @@ public class NotificationHistory
 
     public Resource? Resource { get; set; }
 
+    public ICollection<User> Users { get; set; } = null!;
 
 }

@@ -18,7 +18,7 @@ namespace Mahalo.Back.Data
 
         public DbSet<NotificationSchedulingResource> NotificationSchedulingResources { get; set; }
 
-        public DbSet<NotificationSecheduling> NotificationSechedulings { get; set; }
+        public DbSet<NotificationScheduling> NotificationSechedulings { get; set; }
 
         public DbSet<Psychologist> Psychologists { get; set; }
 
