@@ -5,101 +5,64 @@ using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Response;
 using Microsoft.EntityFrameworkCore;
 
-namespace Mahalo.Back.Repositories.Implementation
+namespace Mahalo.Back.Repositories.Implementation;
+
+public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    private readonly DataContext _dataContext;
+    private readonly DbSet<T> _entity;
+
+    public GenericRepository(DataContext context)
     {
-        private readonly DataContext _dataContext;
-        private readonly DbSet<T> _entity;
+        _dataContext = context;
+        _entity = context.Set<T>();
+    }
 
-        public GenericRepository(DataContext context)
+    public virtual async Task<ActionResponse<T>> AddAsync(T entity)
+    {
+        _dataContext.Add(entity);
+        try
         {
-            _dataContext = context;
-            _entity = context.Set<T>();
-        }
-
-        public virtual async Task<ActionResponse<T>> AddAsync(T entity)
-        {
-            _dataContext.Add(entity);
-            try
-            {
-                await _dataContext.SaveChangesAsync();
-                return new ActionResponse<T>
-                {
-                    WasSuccess = true,
-                    Result = entity
-                };
-            }
-            catch (DbUpdateException)
-            {
-                return DbUpdateExceptionActionResponse();
-            }
-            catch (Exception exception)
-            {
-                return ExceptionActionResponse(exception);
-            }
-        }
-
-        private ActionResponse<T> ExceptionActionResponse(Exception ex)
-        {
+            await _dataContext.SaveChangesAsync();
             return new ActionResponse<T>
             {
-                WasSuccess = false,
-                Message = ex.Message,
+                WasSuccess = true,
+                Result = entity
             };
         }
-
-        private ActionResponse<T> DbUpdateExceptionActionResponse()
+        catch (DbUpdateException)
         {
-            return new ActionResponse<T>
-            {
-                WasSuccess = false,
-                Message = "ERR003"
-            };
+            return DbUpdateExceptionActionResponse();
         }
-
-        public virtual async Task<ActionResponse<T>> DeleteAsync(int id)
+        catch (Exception exception)
         {
-            var row = await _entity.FindAsync(id);
-            if (row == null)
-            {
-                return new ActionResponse<T>
-                {
-                    WasSuccess = false,
-                    Message = "ERR001"
-                };
-            }
-
-            try
-            {
-                _entity.Remove(row);
-                await _dataContext.SaveChangesAsync();
-                return new ActionResponse<T>
-                {
-                    WasSuccess = true,
-                };
-            }
-            catch
-            {
-                return new ActionResponse<T>
-                {
-                    WasSuccess = false,
-                    Message = "ERR002"
-                };
-            }
+            return ExceptionActionResponse(exception);
         }
+    }
 
-        public virtual async Task<ActionResponse<T>> GetAsync(int id)
+    private ActionResponse<T> ExceptionActionResponse(Exception ex)
+    {
+        return new ActionResponse<T>
         {
-            var row = await _entity.FindAsync(id);
-            if (row != null)
-            {
-                return new ActionResponse<T>
-                {
-                    WasSuccess = true,
-                    Result = row
-                };
-            }
+            WasSuccess = false,
+            Message = ex.Message,
+        };
+    }
+
+    private ActionResponse<T> DbUpdateExceptionActionResponse()
+    {
+        return new ActionResponse<T>
+        {
+            WasSuccess = false,
+            Message = "ERR003"
+        };
+    }
+
+    public virtual async Task<ActionResponse<T>> DeleteAsync(int id)
+    {
+        var row = await _entity.FindAsync(id);
+        if (row == null)
+        {
             return new ActionResponse<T>
             {
                 WasSuccess = false,
@@ -107,35 +70,71 @@ namespace Mahalo.Back.Repositories.Implementation
             };
         }
 
-        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync()
+        try
         {
-            return new ActionResponse<IEnumerable<T>>
+            _entity.Remove(row);
+            await _dataContext.SaveChangesAsync();
+            return new ActionResponse<T>
             {
                 WasSuccess = true,
-                Result = await _entity.ToListAsync()
             };
         }
-
-        public virtual async Task<ActionResponse<T>> UpdateAsync(T entity)
+        catch
         {
-            try
+            return new ActionResponse<T>
             {
-                _dataContext.Update(entity);
-                await _dataContext.SaveChangesAsync();
-                return new ActionResponse<T>
-                {
-                    WasSuccess = true,
-                    Result = entity
-                };
-            }
-            catch (DbUpdateException)
+                WasSuccess = false,
+                Message = "ERR002"
+            };
+        }
+    }
+
+    public virtual async Task<ActionResponse<T>> GetAsync(int id)
+    {
+        var row = await _entity.FindAsync(id);
+        if (row != null)
+        {
+            return new ActionResponse<T>
             {
-                return DbUpdateExceptionActionResponse();
-            }
-            catch (Exception exception)
+                WasSuccess = true,
+                Result = row
+            };
+        }
+        return new ActionResponse<T>
+        {
+            WasSuccess = false,
+            Message = "ERR001"
+        };
+    }
+
+    public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync()
+    {
+        return new ActionResponse<IEnumerable<T>>
+        {
+            WasSuccess = true,
+            Result = await _entity.ToListAsync()
+        };
+    }
+
+    public virtual async Task<ActionResponse<T>> UpdateAsync(T entity)
+    {
+        try
+        {
+            _dataContext.Update(entity);
+            await _dataContext.SaveChangesAsync();
+            return new ActionResponse<T>
             {
-                return ExceptionActionResponse(exception);
-            }
+                WasSuccess = true,
+                Result = entity
+            };
+        }
+        catch (DbUpdateException)
+        {
+            return DbUpdateExceptionActionResponse();
+        }
+        catch (Exception exception)
+        {
+            return ExceptionActionResponse(exception);
         }
 
         public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination)

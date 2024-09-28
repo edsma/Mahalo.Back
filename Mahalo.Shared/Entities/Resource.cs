@@ -32,11 +32,11 @@ public class Resource
     [Required]
     public string State { get; set; } = null!;
 
-    public ICollection<ResourceDisorder>? ResourceDisorderes { get; set; }
-    public ICollection<NotificationHistory>? NotificationHistories { get; set; }
-    public ICollection<NotificationSchedulingResource>? NotificationSchedulingResources { get; set; }
+    public ICollection<ResourceDisorder>? ResourcesDisorder { get; set; }
+    public ICollection<NotificationHistory>? NotificationsHistory { get; set; }
+    public ICollection<NotificationSchedulingResource>? NotificationsSchedulingResources { get; set; }
 
-    public int TotalResources => ResourceDisorderes == null ? 0 : ResourceDisorderes.Count;
+    public int TotalResources => ResourcesDisorder == null ? 0 : ResourcesDisorder.Count;
 
 
 }

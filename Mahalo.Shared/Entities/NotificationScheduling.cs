@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mahalo.Shared.Entities;
 
-public class NotificationSecheduling
+public class NotificationScheduling
 {
     public int Id { get; set; }
 
@@ -21,5 +21,5 @@ public class NotificationSecheduling
     [Required]
     public string Name { get; set; } = null!;
 
-    public Collection<NotificationSchedulingResource>? NotificationSchedulingResources { get; set; }
+    public Collection<NotificationSchedulingResource>? NotificationsSchedulingResources { get; set; }
 }

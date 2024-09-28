@@ -17,5 +17,5 @@ public class NotificationSchedulingResource
 
     public Resource? Resource { get; set; }
 
-    public NotificationSecheduling? NotificationSecheduling { get; set; }
+    public NotificationScheduling? NotificationsScheduling { get; set; }
 }
