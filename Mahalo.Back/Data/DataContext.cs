@@ -27,6 +27,10 @@ namespace Mahalo.Back.Data
         public DbSet<ResourceDisorder> ResourcesDisorder { get; set; }
 
         public DbSet<State> State { get; set; }
+
+        public DbSet<Terapy> Terapy { get; set; }
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
