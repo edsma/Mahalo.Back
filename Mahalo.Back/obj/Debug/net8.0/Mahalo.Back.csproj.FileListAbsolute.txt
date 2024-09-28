@@ -1,7 +1,0 @@
-C:\Projects\Mahalo\Mahalo.Back\obj\Debug\net8.0\Mahalo.Back.csproj.AssemblyReference.cache
-C:\Projects\Mahalo\Mahalo.Back\obj\Debug\net8.0\Mahalo.Back.GeneratedMSBuildEditorConfig.editorconfig
-C:\Projects\Mahalo\Mahalo.Back\obj\Debug\net8.0\Mahalo.Back.AssemblyInfoInputs.cache
-C:\Projects\Mahalo\Mahalo.Back\obj\Debug\net8.0\Mahalo.Back.AssemblyInfo.cs
-C:\Projects\Mahalo\Mahalo.Back\obj\Debug\net8.0\Mahalo.Back.csproj.CoreCompileInputs.cache
-C:\Projects\Mahalo\Mahalo.Back\obj\Debug\net8.0\Mahalo.Back.MvcApplicationPartsAssemblyInfo.cache
-C:\Projects\Mahalo\Mahalo.Back\obj\Debug\net8.0\Mahalo.Back.sourcelink.json
