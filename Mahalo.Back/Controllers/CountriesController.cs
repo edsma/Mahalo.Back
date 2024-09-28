@@ -20,7 +20,7 @@ namespace Mahalo.Back.Controllers
         }
 
         [HttpGet("paginated")]
-        public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
+        public virtual async Task<IActionResult> GetAsync(PaginationDTO pagination)
         {
             var response = await _countriesUnitOfWork.GetAsync(pagination);
             if (response.WasSuccess)
@@ -31,7 +31,7 @@ namespace Mahalo.Back.Controllers
         }
 
         [HttpGet("totalRecordsPaginated")]
-        public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
+        public virtual async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
         {
             var action = await _countriesUnitOfWork.GetTotalRecordsAsync(pagination);
             if (action.WasSuccess)
