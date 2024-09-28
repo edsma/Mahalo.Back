@@ -16,9 +16,9 @@ namespace Mahalo.Back.Data
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<NotificationHistory> NotificationsHistory { get; set; }
 
-        public DbSet<NotificationSchedulingResource> NotificationSchedulingResources { get; set; }
+        public DbSet<NotificationSchedulingResource> NotificationsSchedulingResources { get; set; }
 
-        public DbSet<NotificationScheduling> NotificationSechedulings { get; set; }
+        public DbSet<NotificationScheduling> NotificationsScheduling { get; set; }
 
         public DbSet<Psychologist> Psychologists { get; set; }
 
@@ -26,7 +26,10 @@ namespace Mahalo.Back.Data
 
         public DbSet<ResourceDisorder> ResourcesDisorder { get; set; }
 
-        public DbSet<State> State { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<Terapy> Terapies { get; set; }
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

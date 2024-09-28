@@ -4,16 +4,16 @@ namespace Mahalo.Shared.Entities;
 
 public class ResourceDisorder
 {
-    [Display(Name = "CreationDate")]
-    [Required]
-    public DateTime CreationDate { get; set; }
-
     public int Id { get; set; }
 
-    [Display(Name = "ResourceDisorder")]
+    [Display(Name = "Name")]
     [MaxLength(100)]
     [Required]
     public string Name { get; set; } = null!;
+
+    [Display(Name = "CreationDate")]
+    [Required]
+    public DateTime CreationDate { get; set; }
 
     [Display(Name = "IsActive")]
     [Required]
