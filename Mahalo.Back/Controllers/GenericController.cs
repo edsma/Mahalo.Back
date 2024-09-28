@@ -8,7 +8,7 @@ namespace Mahalo.Back.Controllers
     {
         private readonly IGenericUnitOfWork<T> _unitOfWork;
 
-        private ICountriesUnitOfWork countriesUnitOfWork) : base
+        private ICountriesUnitOfWork countriesUnitOfWork;
 
         public GenericController(IGenericUnitOfWork<T> unitOfWork)
 

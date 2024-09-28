@@ -4,7 +4,6 @@ using Mahalo.Back.Repositories.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Response;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Mahalo.Back.Repositories.Implementation
 {

@@ -2,14 +2,16 @@
 
 namespace Mahalo.Shared.Entities;
 
-public class Country
+public class City
 {
     public int Id { get; set; }
 
-    [Display(Name = "Country")]
+    public State State { get; set; } = null!;
+
+    [Display(Name = "City")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
-    public string Name { get; set; } = null!;
+    public string Name { get; set; }
 
     [Display(Name = "IsActive")]
     [Required]
@@ -18,4 +20,5 @@ public class Country
     [Display(Name = "CreationDate")]
     [Required]
     public DateTime CreationDate { get; set; }
+
 }

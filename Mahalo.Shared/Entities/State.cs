@@ -2,11 +2,14 @@
 
 namespace Mahalo.Shared.Entities;
 
-public class Country
+public class State
 {
     public int Id { get; set; }
 
-    [Display(Name = "Country")]
+
+    public Country Country { get; set; } = null!;
+
+    [Display(Name = "State")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
     public string Name { get; set; } = null!;

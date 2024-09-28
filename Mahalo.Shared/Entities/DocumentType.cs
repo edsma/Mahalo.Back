@@ -2,11 +2,11 @@
 
 namespace Mahalo.Shared.Entities;
 
-public class Country
+public class DocumentType
 {
     public int Id { get; set; }
 
-    [Display(Name = "Country")]
+    [Display(Name = "DocumentType")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
     public string Name { get; set; } = null!;
@@ -15,7 +15,6 @@ public class Country
     [Required]
     public bool IsActive { get; set; }
 
-    [Display(Name = "CreationDate")]
-    [Required]
-    public DateTime CreationDate { get; set; }
+
+
 }
