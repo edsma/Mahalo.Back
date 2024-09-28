@@ -11,8 +11,9 @@ public class CitiesController : GenericController<City>
 {
     private readonly ICitiesUnitOfWork _citiesUnitOfWork;
 
-    public CitiesController(IGenericUnitOfWork<City> unitOfWork) : base(unitOfWork)
+    public CitiesController(IGenericUnitOfWork<City> unitOfWork, ICitiesUnitOfWork citiesUnitOfWork) : base(unitOfWork)
     {
+        _citiesUnitOfWork = citiesUnitOfWork;
     }
 
     [HttpGet("paginated")]
