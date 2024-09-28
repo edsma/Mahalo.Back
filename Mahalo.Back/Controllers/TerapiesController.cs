@@ -13,13 +13,13 @@ public class TerapiesController : GenericController<Terapy>
     private readonly ITerapiesUnitOfWork _unitOfWork;
     private ITerapiesUnitOfWork _TerapiesUnitOfWork;
 
-    public TerapiesController(IGenericUnitOfWork<Country> unitOfWork, ITerapiesUnitOfWork terapiesUnitOfWork) : base(unitOfWork)
+    public TerapiesController(IGenericUnitOfWork<Terapy> unitOfWork, ITerapiesUnitOfWork terapiesUnitOfWork) : base(unitOfWork)
     {
         _TerapiesUnitOfWork = terapiesUnitOfWork;
     }
 
     [HttpGet("paginated")]
-    public virtual async Task<IActionResult> GetAsync(PaginationDTO pagination)
+    public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _TerapiesUnitOfWork.GetAsync(pagination);
         if (response.WasSuccess)
