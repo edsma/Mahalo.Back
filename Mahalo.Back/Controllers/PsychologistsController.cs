@@ -17,7 +17,7 @@ public class PsychologistsController : GenericController<Psychologist>
     }
 
     [HttpGet("paginated")]
-    public virtual async Task<IActionResult> GetAsync(PaginationDTO pagination)
+    public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _psychologistsUnitOfWork.GetAsync(pagination);
         if (response.WasSuccess)

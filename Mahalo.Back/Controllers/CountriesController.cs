@@ -20,7 +20,7 @@ namespace Mahalo.Back.Controllers
         }
 
         [HttpGet("paginated")]
-        public virtual async Task<IActionResult> GetAsync(PaginationDTO pagination)
+        public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
         {
             var response = await _countriesUnitOfWork.GetAsync(pagination);
             if (response.WasSuccess)

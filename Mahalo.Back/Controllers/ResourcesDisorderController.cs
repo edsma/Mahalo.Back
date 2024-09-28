@@ -17,7 +17,7 @@ public class ResourcesDisorderController : GenericController<ResourceDisorder>
     }
 
     [HttpGet("paginated")]
-    public virtual async Task<IActionResult> GetAsync(PaginationDTO pagination)
+    public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _resourcesDisorderUnitOfWork.GetAsync(pagination);
         if (response.WasSuccess)
