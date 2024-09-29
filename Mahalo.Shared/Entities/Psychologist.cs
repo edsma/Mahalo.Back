@@ -6,7 +6,6 @@ public class Psychologist
 {
     public int Id { get; set; }
 
-
     [Display(Name = "Psychologist")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
@@ -15,7 +14,6 @@ public class Psychologist
     [Display(Name = "Address")]
     [MaxLength(200, ErrorMessageResourceName = "MaxLength")]
     [Required]
-
     public string Address { get; set; } = null!;
 
     [Display(Name = "XCoordinate")]
@@ -29,10 +27,14 @@ public class Psychologist
     [Display(Name = "OfficeStart")]
     [Required]
     public DateTime OfficeStart { get; set; }
-    
+
     [Display(Name = "OfficeEnd")]
     [Required]
     public DateTime OfficeEnd { get; set; }
+
+    [Display(Name = "TerapyPrice")]
+    [Required]
+    public double TerapyPrice { get; set; }
 
     [Display(Name = "IsActive")]
     [Required]
@@ -42,9 +44,7 @@ public class Psychologist
     [Required]
     public DateTime CreationDate { get; set; }
 
-    public double TerapyPrice { get; set; }
+    public City City { get; set; } = null!;
 
-    public ICollection<City>? Cities { get; set; }
-
-    public ICollection<Terapy> Terapies { get; set; } = null!;
+    public ICollection<Terapy>? Terapies { get; set; } = null!;
 }

@@ -20,7 +20,7 @@ namespace Mahalo.Back.Repositories.Implementation
         public override async Task<ActionResponse<Psychologist>> GetAsync(int id)
         {
             var psychologist = await _context.Psychologists
-                .Include(x => x.Cities)
+                .Include(x => x.City)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (psychologist == null)
@@ -42,7 +42,7 @@ namespace Mahalo.Back.Repositories.Implementation
         public override async Task<ActionResponse<IEnumerable<Psychologist>>> GetAsync()
         {
             var psychologists = await _context.Psychologists
-                .Include(x => x.Cities)
+                .Include(x => x.City)
                 .ToListAsync();
             return new ActionResponse<IEnumerable<Psychologist>>
             {
@@ -61,7 +61,7 @@ namespace Mahalo.Back.Repositories.Implementation
         public override async Task<ActionResponse<IEnumerable<Psychologist>>> GetAsync(PaginationDTO pagination)
         {
             var queryable = _context.Psychologists
-                .Include(x => x.Cities)
+                .Include(x => x.City)
                 .OrderBy(x => x.Name)
                 .AsQueryable();
 

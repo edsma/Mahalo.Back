@@ -1073,6 +1073,21 @@
             "rid": "win"
           }
         }
+      },
+      "Mahalo.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
+          "Swashbuckle.AspNetCore": "6.8.0"
+        },
+        "compile": {
+          "bin/placeholder/Mahalo.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Mahalo.Shared.dll": {}
+        }
       }
     }
   },
@@ -3175,10 +3190,16 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Mahalo.Shared/1.0.0": {
+      "type": "project",
+      "path": "../Mahalo.Shared/Mahalo.Shared.csproj",
+      "msbuildProject": "../Mahalo.Shared/Mahalo.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Mahalo.Shared >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 8.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.8",
       "Swashbuckle.AspNetCore >= 6.8.0"
@@ -3190,11 +3211,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yeiyi\\Documents\\GitHub\\Mahalo.Back\\Mahalo.Shared\\Mahalo.Shared.csproj",
-      "projectName": "Mahalo.Shared",
-      "projectPath": "C:\\Users\\yeiyi\\Documents\\GitHub\\Mahalo.Back\\Mahalo.Shared\\Mahalo.Shared.csproj",
+      "projectUniqueName": "C:\\Users\\yeiyi\\Documents\\GitHub\\Mahalo.Back\\Mahalo.Back\\Mahalo.Back.csproj",
+      "projectName": "Mahalo.Back",
+      "projectPath": "C:\\Users\\yeiyi\\Documents\\GitHub\\Mahalo.Back\\Mahalo.Back\\Mahalo.Back.csproj",
       "packagesPath": "C:\\Users\\yeiyi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yeiyi\\Documents\\GitHub\\Mahalo.Back\\Mahalo.Shared\\obj\\",
+      "outputPath": "C:\\Users\\yeiyi\\Documents\\GitHub\\Mahalo.Back\\Mahalo.Back\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\yeiyi\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3211,7 +3232,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\yeiyi\\Documents\\GitHub\\Mahalo.Back\\Mahalo.Shared\\Mahalo.Shared.csproj": {
+              "projectPath": "C:\\Users\\yeiyi\\Documents\\GitHub\\Mahalo.Back\\Mahalo.Shared\\Mahalo.Shared.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -3254,6 +3279,9 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }

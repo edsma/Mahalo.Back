@@ -1,0 +1,1 @@
+﻿INSERT [dbo].[Cities] ([Name], [IsActive], [CreationDate], [StateId]) VALUES (N'Medellin', 1, GETDATE(),(SELECT top 1 Id from States where Name = 'Antioquia')) -- Antioquia

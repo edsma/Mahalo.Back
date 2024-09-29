@@ -22,23 +22,22 @@ public class User
     [Required]
     public string Password { get; set; } = null!;
 
-    [Display(Name = "IsActive")]
-    [Required]
-    public bool IsActive { get; set; }
-
     [Display(Name = "CreationDate")]
     [Required]
     public DateTime CreationDate { get; set; }
 
-    public DocumentType DocumentType { get; set; } = null!;
-    public City City { get; set; } = null!;
+    [Display(Name = "IsActive")]
+    [Required]
+    public bool IsActive { get; set; }
 
-    public ICollection<Terapy> Terapies { get; set; } = null!;
+    public DocumentType? DocumentType { get; set; }
+    public City? City { get; set; }
 
-    public ICollection<Disorder> Disorders { get; set; } = null!;
+    public ICollection<Terapy>? Terapies { get; set; }
 
-    public ICollection<Resource> Resources { get; set; } = null!;
+    public ICollection<Disorder>? Disorders { get; set; }
 
-    public ICollection<NotificationScheduling> NotificationsScheduling { get; set; } = null!;
+    public ICollection<Resource>? Resources { get; set; }
 
+    public ICollection<NotificationScheduling>? NotificationsScheduling { get; set; }
 }

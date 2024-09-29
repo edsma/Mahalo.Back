@@ -4,11 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mahalo.Back.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class NotificationsSchedulingResourcesController : GenericController<NotificationSchedulingResource>
+public class NotificationsSchedulingResourcesController
 {
-    public NotificationsSchedulingResourcesController(IGenericUnitOfWork<NotificationSchedulingResource> unitOfWork) : base(unitOfWork)
-    {
-    }
 }

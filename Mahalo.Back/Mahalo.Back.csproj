@@ -24,4 +24,14 @@
     <ProjectReference Include="..\Mahalo.Shared\Mahalo.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\Countries.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
