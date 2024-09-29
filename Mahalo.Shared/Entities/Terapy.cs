@@ -2,7 +2,7 @@
 
 namespace Mahalo.Shared.Entities;
 
-public  class Terapy
+public class Terapy
 {
     public int id { get; set; }
 
@@ -11,6 +11,11 @@ public  class Terapy
     public DateTime HourTerapy { get; set; }
 
     [Display(Name = "IsActive")]
+    [Required]
+    public string Name { get; set; } = null!;
+
+    [Display(Name = "Name")]
+    [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
     public bool IsActive { get; set; }
     public City? City { get; set; }
