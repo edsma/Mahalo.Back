@@ -16,7 +16,7 @@ public class StatesController : GenericController<State>
         _statesUnitOfWork = statesUnitOfWork;
     }
 
-    [HttpGet("paginated")]
+    [HttpPost("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _statesUnitOfWork.GetAsync(pagination);

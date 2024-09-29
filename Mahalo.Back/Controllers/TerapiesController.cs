@@ -18,7 +18,7 @@ public class TerapiesController : GenericController<Terapy>
         _TerapiesUnitOfWork = terapiesUnitOfWork;
     }
 
-    [HttpGet("paginated")]
+    [HttpPost("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _TerapiesUnitOfWork.GetAsync(pagination);

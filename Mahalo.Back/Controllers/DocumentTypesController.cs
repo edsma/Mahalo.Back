@@ -17,7 +17,7 @@ public class DocumentTypesController : GenericController<DocumentType>
         _documentTypesUnitOfWork = documentTypesUnitOfWork;
     }
 
-    [HttpGet("paginated")]
+    [HttpPost("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _documentTypesUnitOfWork.GetAsync(pagination);
