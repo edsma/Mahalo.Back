@@ -5,6 +5,7 @@ using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mahalo.Back.Controllers
 {
@@ -23,9 +24,15 @@ namespace Mahalo.Back.Controllers
         public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
         {
             var response = await _countriesUnitOfWork.GetAsync(pagination);
+            var action = await _countriesUnitOfWork.GetTotalRecordsAsync(pagination);
             if (response.WasSuccess)
             {
-                return Ok(response.Result);
+                ResponseQuery<Country> query = new ResponseQuery<Country>
+                {
+                    Data = response.Result!.ToList(),
+                    total = action.Result.ToString()
+                };
+                return Ok(query);
             }
             return BadRequest();
         }
