@@ -1,7 +1,9 @@
-﻿using Mahalo.Back.UnitsOfWork.Interfaces;
+﻿using Mahalo.Back.UnitsOfWork.Implementation;
+using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mahalo.Back.Controllers;
 
@@ -20,9 +22,27 @@ public class StatesController : GenericController<State>
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _statesUnitOfWork.GetAsync(pagination);
+
+        var action = await _statesUnitOfWork.GetTotalRecordsAsync(pagination);
         if (response.WasSuccess)
         {
-            return Ok(response.Result);
+            List<StateDto> dtoList = new List<StateDto>();
+            foreach (var item in response.Result)
+            {
+                dtoList.Add(new StateDto
+                {
+                    CreationDate = item.CreationDate,
+                    Id = item.Id,
+                    IsActive = item.IsActive,
+                    Name = item.Name,
+                });
+            }
+            ResponseQuery<StateDto> query = new ResponseQuery<StateDto>
+            {
+                Data = dtoList,
+                total = action.Result.ToString()
+            };
+            return Ok(query);
         }
         return BadRequest();
     }

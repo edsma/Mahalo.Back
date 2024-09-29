@@ -3,6 +3,7 @@ using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mahalo.Back.Controllers;
 
@@ -21,9 +22,15 @@ public class UsersController : GenericController<User>
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _usersUnitOfWork.GetAsync(pagination);
+        var action = await _usersUnitOfWork.GetTotalRecordsAsync(pagination);
         if (response.WasSuccess)
         {
-            return Ok(response.Result);
+            ResponseQuery<User> query = new ResponseQuery<User>
+            {
+                Data = response.Result!.ToList(),
+                total = action.Result.ToString()
+            };
+            return Ok(query);
         }
         return BadRequest();
     }
