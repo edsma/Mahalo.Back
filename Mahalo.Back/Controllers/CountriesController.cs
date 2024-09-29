@@ -19,7 +19,7 @@ namespace Mahalo.Back.Controllers
             _countriesUnitOfWork = countriesUnitOfWork;
         }
 
-        [HttpPost("paginated")]
+        [HttpGet("paginated")]
         public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
         {
             var response = await _countriesUnitOfWork.GetAsync(pagination);

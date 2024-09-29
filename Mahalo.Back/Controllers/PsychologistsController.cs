@@ -16,7 +16,7 @@ public class PsychologistsController : GenericController<Psychologist>
         _psychologistsUnitOfWork = psychologistsUnitOfWork;
     }
 
-    [HttpPost("paginated")]
+    [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _psychologistsUnitOfWork.GetAsync(pagination);

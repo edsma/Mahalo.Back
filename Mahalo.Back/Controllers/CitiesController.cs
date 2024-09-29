@@ -16,7 +16,7 @@ public class CitiesController : GenericController<City>
         _citiesUnitOfWork = citiesUnitOfWork;
     }
 
-    [HttpPost("paginated")]
+    [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _citiesUnitOfWork.GetAsync(pagination);

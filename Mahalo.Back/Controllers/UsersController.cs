@@ -17,7 +17,7 @@ public class UsersController : GenericController<User>
         _usersUnitOfWork = usersUnitOfWork;
     }
 
-    [HttpPost("paginated")]
+    [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _usersUnitOfWork.GetAsync(pagination);
