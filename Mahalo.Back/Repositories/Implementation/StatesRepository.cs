@@ -19,7 +19,7 @@ namespace Mahalo.Back.Repositories.Implementation
 
         public override async Task<ActionResponse<State>> GetAsync(int id)
         {
-            var state = await _context.State
+            var state = await _context.States
                 .Include(x => x.Cities)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -41,7 +41,7 @@ namespace Mahalo.Back.Repositories.Implementation
 
         public override async Task<ActionResponse<IEnumerable<State>>> GetAsync()
         {
-            var states = await _context.State
+            var states = await _context.States
                 .Include(x => x.Cities)
                 .ToListAsync();
             return new ActionResponse<IEnumerable<State>>
@@ -53,14 +53,14 @@ namespace Mahalo.Back.Repositories.Implementation
 
         public async Task<IEnumerable<State>> GetComboAsync()
         {
-            return await _context.State
+            return await _context.States
                 .OrderBy(x => x.Name)
                 .ToListAsync();
         }
 
         public override async Task<ActionResponse<IEnumerable<State>>> GetAsync(PaginationDTO pagination)
         {
-            var queryable = _context.State
+            var queryable = _context.States
                 .Include(x => x.Cities)
                 .OrderBy(x => x.Name)
                 .AsQueryable();
@@ -82,7 +82,7 @@ namespace Mahalo.Back.Repositories.Implementation
 
         public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
         {
-            var queryable = _context.State.AsQueryable();
+            var queryable = _context.States.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {

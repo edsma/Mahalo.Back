@@ -4,7 +4,7 @@ namespace Mahalo.Shared.Entities;
 
 public class State
 {
-    public int Id { get; set; }  
+    public int Id { get; set; }
 
     [Display(Name = "State")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]

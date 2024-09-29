@@ -33,12 +33,11 @@ public class User
     public DocumentType? DocumentType { get; set; }
     public City? City { get; set; }
 
-    public ICollection<Terapy> Terapies { get; set; } = null!;
+    public ICollection<Terapy>? Terapies { get; set; }
 
-    public ICollection<Disorder> Disorders { get; set; } = null!;
+    public ICollection<Disorder>? Disorders { get; set; }
 
-    public ICollection<Resource> Resources { get; set; } = null!;
+    public ICollection<Resource>? Resources { get; set; }
 
-    public ICollection<NotificationScheduling> NotificationsScheduling { get; set; } = null!;
-
+    public ICollection<NotificationScheduling>? NotificationsScheduling { get; set; }
 }

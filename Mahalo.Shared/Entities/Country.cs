@@ -6,7 +6,6 @@ public class Country
 {
     public int Id { get; set; }
 
-    
     [Display(Name = "Country")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
@@ -20,7 +19,5 @@ public class Country
     [Required]
     public DateTime CreationDate { get; set; }
 
-    public ICollection<State>? States { get; set; }
-
-
+    public ICollection<State> States { get; set; } = null!;
 }
