@@ -20,8 +20,9 @@ public class City
     [Required]
     public DateTime CreationDate { get; set; }
 
+    public State State { get; set; } = null!;
     public ICollection<User>? Users { get; set; }
 
     public ICollection<Terapy> Terapies { get; set; } = null!;
-    public State State { get; set; } = null!;
+    
 }

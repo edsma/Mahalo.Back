@@ -6,31 +6,31 @@ public class Resource
 {
     public int Id { get; set; }
 
-    [Display(Name = "CreationDate")]
+    [Display(Name = "Name")]
+    [MaxLength(100)]
     [Required]
-    public DateTime CreationDate { get; set; }
-
-    [Display(Name = "IsActive")]
-    [Required]
-    public bool IsActive { get; set; }
+    public string Name { get; set; } = null!;
 
     [Display(Name = "Location")]
     [MaxLength(100)]
     [Required]
     public string Location { get; set; } = null!;
 
+    [Display(Name = "CreationDate")]
+    [Required]
+    public DateTime CreationDate { get; set; }
+
     [Display(Name = "ModifiedDate")]
     public DateTime ModifiedDate { get; set; }
 
-    [Display(Name = "Resource")]
+    [Display(Name = "Status")]
     [MaxLength(100)]
     [Required]
-    public string Name { get; set; } = null!;
+    public string Status { get; set; } = null!;
 
-    [Display(Name = "State")]
-    [MaxLength(100)]
+    [Display(Name = "IsActive")]
     [Required]
-    public string State { get; set; } = null!;
+    public bool IsActive { get; set; }
 
     public ICollection<ResourceDisorder>? ResourcesDisorder { get; set; }
     public ICollection<NotificationHistory>? NotificationsHistory { get; set; }

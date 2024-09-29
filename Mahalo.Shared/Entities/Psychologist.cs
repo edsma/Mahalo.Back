@@ -34,6 +34,10 @@ public class Psychologist
     [Required]
     public DateTime OfficeEnd { get; set; }
 
+    [Display(Name = "TerapyPrice")]
+    [Required]
+    public double TerapyPrice { get; set; }
+
     [Display(Name = "IsActive")]
     [Required]
     public bool IsActive { get; set; }
@@ -41,8 +45,6 @@ public class Psychologist
     [Display(Name = "CreationDate")]
     [Required]
     public DateTime CreationDate { get; set; }
-
-    public double TerapyPrice { get; set; }
 
     public ICollection<City>? Cities { get; set; }
 

@@ -22,16 +22,16 @@ public class User
     [Required]
     public string Password { get; set; } = null!;
 
-    [Display(Name = "IsActive")]
-    [Required]
-    public bool IsActive { get; set; }
-
     [Display(Name = "CreationDate")]
     [Required]
     public DateTime CreationDate { get; set; }
 
-    public DocumentType DocumentType { get; set; } = null!;
-    public City City { get; set; } = null!;
+    [Display(Name = "IsActive")]
+    [Required]
+    public bool IsActive { get; set; }
+
+    public DocumentType? DocumentType { get; set; }
+    public City? City { get; set; }
 
     public ICollection<Terapy> Terapies { get; set; } = null!;
 

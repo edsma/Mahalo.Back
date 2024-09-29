@@ -7,6 +7,11 @@ public class NotificationScheduling
 {
     public int Id { get; set; }
 
+    [Display(Name = "NotificationSecheduling")]
+    [MaxLength(100)]
+    [Required]
+    public string Name { get; set; } = null!;
+
     [Display(Name = "SchedulingDays")]
     [MaxLength(100)]
     [Required]
@@ -15,11 +20,6 @@ public class NotificationScheduling
     [Display(Name = "IsActive")]
     [Required]
     public bool IsActive { get; set; }
-
-    [Display(Name = "NotificationSecheduling")]
-    [MaxLength(100)]
-    [Required]
-    public string Name { get; set; } = null!;
 
     public Collection<NotificationSchedulingResource>? NotificationsSchedulingResources { get; set; }
 }

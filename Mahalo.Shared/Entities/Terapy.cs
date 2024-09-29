@@ -18,7 +18,6 @@ public class Terapy
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
     public bool IsActive { get; set; }
-
-    public City City { get; set; } = null!;
-    public Psychologist Psychologist { get; set; } = null!;
+    public City? City { get; set; }
+    public Psychologist? Psychologist { get; set; }
 }
