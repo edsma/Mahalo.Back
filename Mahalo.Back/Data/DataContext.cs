@@ -33,7 +33,19 @@ namespace Mahalo.Back.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Country>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<Country>().HasIndex(x => x.Id).IsUnique();            
+            modelBuilder.Entity<State>().HasIndex(x => x.Id).IsUnique();            
+            modelBuilder.Entity<City>().HasIndex(x => x.Id).IsUnique();            
+            modelBuilder.Entity<Psychologist>().HasIndex(x => x.Id).IsUnique();
+            modelBuilder.Entity<Terapy>().HasIndex(x => x.Id).IsUnique();            
+            modelBuilder.Entity<User>().HasIndex(x => x.Id).IsUnique();            
+            modelBuilder.Entity<DocumentType>().HasIndex(x => x.Id).IsUnique();            
+            modelBuilder.Entity<Disorder>().HasIndex(x => x.Id).IsUnique();           
+            modelBuilder.Entity<NotificationHistory>().HasIndex(x => x.Id).IsUnique();            
+            modelBuilder.Entity<NotificationScheduling>().HasIndex(x => x.Id).IsUnique();          
+            modelBuilder.Entity<NotificationSchedulingResource>().HasIndex(x => x.Id).IsUnique();            
+            modelBuilder.Entity<ResourceDisorder>().HasIndex(x => x.Id).IsUnique();            
+            modelBuilder.Entity<Resource>().HasIndex(x => x.Id).IsUnique();
             DisableCascadingDelete(modelBuilder);
         }
 

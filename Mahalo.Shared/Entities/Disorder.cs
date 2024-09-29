@@ -4,7 +4,7 @@ namespace Mahalo.Shared.Entities;
 
 public class Disorder
 {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
     [Display(Name = "Disorder")]
     [MaxLength(100)]

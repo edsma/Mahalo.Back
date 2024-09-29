@@ -4,11 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mahalo.Back.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class NotificationsHistoryController : GenericController<NotificationHistory>
+public class NotificationsHistoryController
 {
-    public NotificationsHistoryController(IGenericUnitOfWork<NotificationHistory> unitOfWork) : base(unitOfWork)
-    {
-    }
 }

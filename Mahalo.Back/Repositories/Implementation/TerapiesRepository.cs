@@ -19,9 +19,9 @@ namespace Mahalo.Back.Repositories.Implementation
 
         public override async Task<ActionResponse<Terapy>> GetAsync(int id)
         {
-            var terapy = await _context.Terapy
+            var terapy = await _context.Terapies
                 .Include(x => x.City)
-                .FirstOrDefaultAsync(x => x.id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (terapy == null)
             {
@@ -41,7 +41,7 @@ namespace Mahalo.Back.Repositories.Implementation
 
         public override async Task<ActionResponse<IEnumerable<Terapy>>> GetAsync()
         {
-            var terapies = await _context.Terapy
+            var terapies = await _context.Terapies
                 .Include(x => x.City)
                 .ToListAsync();
             return new ActionResponse<IEnumerable<Terapy>>
@@ -53,15 +53,15 @@ namespace Mahalo.Back.Repositories.Implementation
 
         public async Task<IEnumerable<Terapy>> GetComboAsync()
         {
-            return await _context.Terapy
+            return await _context.Terapies
                 .OrderBy(x => x.HourTerapy)
                 .ToListAsync();
         }
 
         public override async Task<ActionResponse<IEnumerable<Terapy>>> GetAsync(PaginationDTO pagination)
         {
-            var queryable = _context.Terapy
-                .Include(x => x.id)
+            var queryable = _context.Terapies
+                .Include(x => x.Id)
                 .OrderBy(x => x.HourTerapy)
                 .AsQueryable();
 
@@ -82,7 +82,7 @@ namespace Mahalo.Back.Repositories.Implementation
 
         public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
         {
-            var queryable = _context.Terapy.AsQueryable();
+            var queryable = _context.Terapies.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {

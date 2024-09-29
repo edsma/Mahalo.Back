@@ -1,6 +1,1 @@
-SET IDENTITY_INSERT [dbo].[Psychologist] ON 
-INSERT [dbo].[Psychologist] ([Id], [Name], [Address], [XCoordinate], [YCoordinate], [OfficeStart], [OfficeEnd], [TerapyPrice], [IsActive], [CreationDate]) VALUES (1, N'Leidy Catherine Delgado Paladines', N'Calle 1 #2 3', 2.0, 3.0, GETDATE(), GETDATE(), 25000, 1, GETDATE())
-INSERT [dbo].[Psychologist] ([Id], [Name], [Address], [XCoordinate], [YCoordinate], [OfficeStart], [OfficeEnd], [TerapyPrice], [IsActive], [CreationDate]) VALUES (2, N'Jhojal Alveiro Perea Medina', N'Calle 1 #2 3', 2.0, 3.0, GETDATE(), GETDATE(), 25000, 1, GETDATE())
-INSERT [dbo].[Psychologist] ([Id], [Name], [Address], [XCoordinate], [YCoordinate], [OfficeStart], [OfficeEnd], [TerapyPrice], [IsActive], [CreationDate]) VALUES (3, N'Edwin Arley Tangarife Tobón', N'Calle 1 #2 3', 2.0, 3.0, GETDATE(), GETDATE(), 25000, 1, GETDATE())
-INSERT [dbo].[Psychologist] ([Id], [Name], [Address], [XCoordinate], [YCoordinate], [OfficeStart], [OfficeEnd], [TerapyPrice], [IsActive], [CreationDate]) VALUES (4, N'Hernán Chamorro', N'Calle 1 #2 3', 2.0, 3.0, GETDATE(), GETDATE(), 25000, 1, GETDATE())
-SET IDENTITY_INSERT [dbo].[Psychologist] OFF
+INSERT [dbo].[Psychologists] ([Name], [Address], [XCoordinate], [YCoordinate], [OfficeStart], [OfficeEnd], [TerapyPrice], [IsActive], [CreationDate], [CityId]) VALUES (N'Leidy Catherine Delgado Paladines', N'Calle 1 #2 3', 2.0, 3.0, GETDATE(), GETDATE(), 25000, 1, GETDATE(),  (SELECT top 1 Id from Cities where Name = 'Medellin'))

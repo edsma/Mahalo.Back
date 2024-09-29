@@ -19,6 +19,6 @@ public class ResourceDisorder
     [Required]
     public bool IsActive { get; set; }
 
-    public Disorder? Disorder { get; set; }
-    public Resource? Resource { get; set; }
+    public Disorder Disorder { get; set; } = null!;
+    public Resource Resource { get; set; } = null!;
 }

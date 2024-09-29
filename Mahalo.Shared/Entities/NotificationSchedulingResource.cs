@@ -15,7 +15,7 @@ public class NotificationSchedulingResource
     [Required]
     public bool IsActive { get; set; }
 
-    public Resource? Resource { get; set; }
+    public Resource Resource { get; set; } = null!;
 
     public NotificationScheduling? NotificationsScheduling { get; set; }
 }

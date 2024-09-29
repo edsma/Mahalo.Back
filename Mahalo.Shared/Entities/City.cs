@@ -6,7 +6,6 @@ public class City
 {
     public int Id { get; set; }
 
-   
     [Display(Name = "City")]
     [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
     [Required]
@@ -23,6 +22,5 @@ public class City
     public State State { get; set; } = null!;
     public ICollection<User>? Users { get; set; }
 
-    public ICollection<Terapy> Terapies { get; set; } = null!;
-    
+    public ICollection<Terapy>? Terapies { get; set; }
 }
