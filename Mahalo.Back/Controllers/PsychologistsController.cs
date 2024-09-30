@@ -1,7 +1,9 @@
-﻿using Mahalo.Back.UnitsOfWork.Interfaces;
+﻿using Mahalo.Back.UnitsOfWork.Implementation;
+using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mahalo.Back.Controllers;
 
@@ -20,9 +22,16 @@ public class PsychologistsController : GenericController<Psychologist>
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _psychologistsUnitOfWork.GetAsync(pagination);
+
+        var action = await _psychologistsUnitOfWork.GetTotalRecordsAsync(pagination);
         if (response.WasSuccess)
         {
-            return Ok(response.Result);
+            ResponseQuery<Psychologist> query = new ResponseQuery<Psychologist>
+            {
+                Data = response.Result!.ToList(),
+                total = action.Result.ToString()
+            };
+            return Ok(query);
         }
         return BadRequest();
     }

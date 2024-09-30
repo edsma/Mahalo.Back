@@ -21,9 +21,15 @@ public class DisordersController : GenericController<Disorder>
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         var response = await _disordersUnitOfWork.GetAsync(pagination);
+        var action = await _disordersUnitOfWork.GetTotalRecordsAsync(pagination);
         if (response.WasSuccess)
         {
-            return Ok(response.Result);
+            ResponseQuery<Disorder> query = new ResponseQuery<Disorder>
+            {
+                Data = response.Result!.ToList(),
+                total = action.Result.ToString()
+            };
+            return Ok(query);
         }
         return BadRequest();
     }
