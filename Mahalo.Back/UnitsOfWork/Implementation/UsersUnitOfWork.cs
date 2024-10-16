@@ -3,10 +3,11 @@ using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
 using Mahalo.Shared.Response;
+using Microsoft.AspNetCore.Identity;
 
 namespace Mahalo.Back.UnitsOfWork.Implementation
 {
-    public class UsersUnitOfWork : GenericUnitOfWork<User>, IUsersUnitOfWork
+    /*public class UsersUnitOfWork : GenericUnitOfWork<User>, IUsersUnitOfWork
     {
         private readonly IUsersRepository _UsersRepository;
 
@@ -24,5 +25,25 @@ namespace Mahalo.Back.UnitsOfWork.Implementation
         public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _UsersRepository.GetTotalRecordsAsync(pagination);
 
         public async Task<IEnumerable<User>> GetComboAsync() => await _UsersRepository.GetComboAsync();
+    }*/
+
+    public class UsersUnitOfWork : IUsersUnitOfWork
+    {
+        private readonly IUsersRepository _usersRepository;
+
+        public UsersUnitOfWork(IUsersRepository usersRepository)
+        {
+            _usersRepository = usersRepository;
+        }
+
+        public async Task<IdentityResult> AddUserAsync(User user, string password) => await _usersRepository.AddUserAsync(user, password);
+
+        public async Task AddUserToRoleAsync(User user, string roleName) => await _usersRepository.AddUserToRoleAsync(user, roleName);
+
+        public async Task CheckRoleAsync(string roleName) => await _usersRepository.CheckRoleAsync(roleName);
+
+        public async Task<User> GetUserAsync(string email) => await _usersRepository.GetUserAsync(email);
+
+        public async Task<bool> IsUserInRoleAsync(User user, string roleName) => await _usersRepository.IsUserInRoleAsync(user, roleName);
     }
 }

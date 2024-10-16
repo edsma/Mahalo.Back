@@ -1,4 +1,6 @@
-﻿using Mahalo.Shared.Entities;
+﻿using Mahalo.Back.UnitsOfWork.Interfaces;
+using Mahalo.Shared.Entities;
+using Mahalo.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mahalo.Back.Data;
@@ -6,11 +8,13 @@ namespace Mahalo.Back.Data;
 public class SeedDb
 {
     private readonly DataContext _context;
+    private readonly IUsersUnitOfWork _usersUnitOfWork;
     private readonly DateTime _creationDate = DateTime.Now;
 
-    public SeedDb(DataContext context)
+    public SeedDb(DataContext context, IUsersUnitOfWork usersUnitOfWork)
     {
         _context = context;
+        _usersUnitOfWork = usersUnitOfWork;
     }
 
     public async Task SeedAsync()
@@ -31,6 +35,9 @@ public class SeedDb
         await CheckResourcesDisorderAsync();
         await CheckUsersAsync();
         await CheckTerapiesAsync();
+
+        await CheckRolesAsync();
+        await CheckUserAsync("Juan", "Zuluaga", "zulu@yopmail.com", "322 311 4620", UserType.Admin);
     }
 
     private async Task CheckCitiesAsync()
@@ -164,11 +171,41 @@ public class SeedDb
     {
         if (!_context.Users.Any())
         {
-            _context.Users.Add(new User { Name = "Homer Simpson", Email = "homer@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
-            _context.Users.Add(new User { Name = "Lisa Simpson", Email = "lisa@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
-            _context.Users.Add(new User { Name = "Maggie Simpson", Email = "maggie@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
+            //_context.Users.Add(new User { Name = "Homer Simpson", Email = "homer@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
+            //_context.Users.Add(new User { Name = "Lisa Simpson", Email = "lisa@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
+            //_context.Users.Add(new User { Name = "Maggie Simpson", Email = "maggie@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
+            await CheckUserAsync("Catherine", "Delgado", "yeiyicadepa@hotmail.com", "3113167415", UserType.Admin);
         }
 
         await _context.SaveChangesAsync();
+    }
+
+    private async Task CheckRolesAsync()
+    {
+        await _usersUnitOfWork.CheckRoleAsync(UserType.Admin.ToString());
+        await _usersUnitOfWork.CheckRoleAsync(UserType.User.ToString());
+    }
+
+    private async Task<User> CheckUserAsync(string firstName, string lastName, string email, string phone, UserType userType)
+    {
+        var user = await _usersUnitOfWork.GetUserAsync(email);
+        if (user == null)
+        {
+            var country = await _context.Countries.FirstOrDefaultAsync(x => x.Name == "Colombia");
+            user = new User
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                UserName = email,
+                PhoneNumber = phone,
+                UserType = userType,
+            };
+
+            await _usersUnitOfWork.AddUserAsync(user, "123456");
+            await _usersUnitOfWork.AddUserToRoleAsync(user, userType.ToString());
+        }
+
+        return user;
     }
 }
