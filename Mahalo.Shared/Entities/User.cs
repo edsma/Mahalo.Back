@@ -1,26 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Mahalo.Shared.Enums;
+using Mahalo.Shared.Resources;
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
 namespace Mahalo.Shared.Entities;
 
-public class User
+public class User : IdentityUser
 {
-    public int Id { get; set; }
+    [Display(Name = "FirstName", ResourceType = typeof(Literals))]
+    [MaxLength(50, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+    public string FirstName { get; set; } = null!;
 
-    [Display(Name = "Name")]
-    [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
-    [Required]
-    public string Name { get; set; } = null!;
+    [Display(Name = "LastName", ResourceType = typeof(Literals))]
+    [MaxLength(50, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+    public string LastName { get; set; } = null!;
 
-    [Display(Name = "Email")]
-    [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
-    [Required]
-    public string Email { get; set; } = null!;
+    [Display(Name = "Image", ResourceType = typeof(Literals))]
+    public string? Photo { get; set; }
 
-    [Display(Name = "Password")]
-    [MaxLength(100, ErrorMessageResourceName = "MaxLength")]
-    [Required]
-    public string Password { get; set; } = null!;
+    [Display(Name = "UserType", ResourceType = typeof(Literals))]
+    public UserType UserType { get; set; }
+
+    [Display(Name = "User", ResourceType = typeof(Literals))]
+    public string FullName => $"{FirstName} {LastName}";
 
     [Display(Name = "CreationDate")]
     [Required]
