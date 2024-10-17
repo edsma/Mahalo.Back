@@ -18,6 +18,13 @@ namespace Mahalo.Back.UnitsOfWork.Interfaces
         //Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
 
         //
+
+        Task<User> GetUserAsync(Guid userId);
+
+        Task<string> GenerateEmailConfirmationTokenAsync(User user);
+
+        Task<IdentityResult> ConfirmEmailAsync(User user, string token);
+
         Task<SignInResult> LoginAsync(LoginDTO model);
 
         Task LogoutAsync();

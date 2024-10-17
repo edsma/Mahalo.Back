@@ -136,9 +136,26 @@ namespace Mahalo.Back.Repositories.Implementation
             throw new NotImplementedException();
         }*/
 
+        public async Task<User> GetUserAsync(Guid userId)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(x => x.Id == userId.ToString());
+            return user!;
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
+        {
+            return await _userManager.ConfirmEmailAsync(user, token);
+        }
+
         public async Task<SignInResult> LoginAsync(LoginDTO model)
         {
-            return await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            return await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, true);
         }
 
         public async Task LogoutAsync()
