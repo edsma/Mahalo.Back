@@ -18,6 +18,11 @@ namespace Mahalo.Back.Repositories.Interfaces
         //Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
 
         //
+
+        Task<SignInResult> LoginAsync(LoginDTO model);
+
+        Task LogoutAsync();
+
         Task<User> GetUserAsync(string email);
 
         Task<IdentityResult> AddUserAsync(User user, string password);
