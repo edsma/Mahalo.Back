@@ -244,9 +244,7 @@ public class AccountsController : ControllerBase
         return BadRequest(result.Errors.FirstOrDefault()!.Description);
     }
 
-…
-
-public async Task<ActionResponse<string>> SendRecoverEmailAsync(User user, string language)
+    public async Task<ActionResponse<string>> SendRecoverEmailAsync(User user, string language)
     {
         var myToken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(user);
         var tokenLink = Url.Action("ResetPassword", "accounts", new
