@@ -1,4 +1,5 @@
-﻿using Mahalo.Back.Repositories.Interfaces;
+﻿using Mahalo.Back.Repositories.Implementation;
+using Mahalo.Back.Repositories.Interfaces;
 using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
@@ -7,26 +8,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Mahalo.Back.UnitsOfWork.Implementation
 {
-    /*public class UsersUnitOfWork : GenericUnitOfWork<User>, IUsersUnitOfWork
-    {
-        private readonly IUsersRepository _UsersRepository;
-
-        public UsersUnitOfWork(IGenericRepository<User> repository, IUsersRepository UsersRepository) : base(repository)
-        {
-            _UsersRepository = UsersRepository;
-        }
-
-        public override async Task<ActionResponse<IEnumerable<User>>> GetAsync() => await _UsersRepository.GetAsync();
-
-        public override async Task<ActionResponse<User>> GetAsync(int id) => await _UsersRepository.GetAsync(id);
-
-        public override async Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination) => await _UsersRepository.GetAsync(pagination);
-
-        public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _UsersRepository.GetTotalRecordsAsync(pagination);
-
-        public async Task<IEnumerable<User>> GetComboAsync() => await _UsersRepository.GetComboAsync();
-    }*/
-
     public class UsersUnitOfWork : IUsersUnitOfWork
     {
         private readonly IUsersRepository _usersRepository;
@@ -35,6 +16,16 @@ namespace Mahalo.Back.UnitsOfWork.Implementation
         {
             _usersRepository = usersRepository;
         }
+
+        public async Task<ActionResponse<IEnumerable<User>>> GetAsync() => await _usersRepository.GetAsync();
+
+        public async Task<User> GetUserAsync(string email) => await _usersRepository.GetUserAsync(email);
+
+        public async Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination) => await _usersRepository.GetAsync(pagination);
+
+        public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _usersRepository.GetTotalRecordsAsync(pagination);
+
+        public async Task<IEnumerable<User>> GetComboAsync() => await _usersRepository.GetComboAsync();
 
         public async Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword) => await _usersRepository.ChangePasswordAsync(user, currentPassword, newPassword);
 
@@ -51,8 +42,6 @@ namespace Mahalo.Back.UnitsOfWork.Implementation
         public async Task AddUserToRoleAsync(User user, string roleName) => await _usersRepository.AddUserToRoleAsync(user, roleName);
 
         public async Task CheckRoleAsync(string roleName) => await _usersRepository.CheckRoleAsync(roleName);
-
-        public async Task<User> GetUserAsync(string email) => await _usersRepository.GetUserAsync(email);
 
         public async Task<bool> IsUserInRoleAsync(User user, string roleName) => await _usersRepository.IsUserInRoleAsync(user, roleName);
 

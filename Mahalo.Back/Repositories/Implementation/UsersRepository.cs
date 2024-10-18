@@ -31,64 +31,42 @@ namespace Mahalo.Back.Repositories.Implementation
             _signInManager = signInManager;
         }
 
-        /* public override async Task<ActionResponse<User>> GetAsync(int id)
-         {
-             var user = await _context.Users
-                 .Include(x => x.City)
-                 .FirstOrDefaultAsync(x => x.Id == id);
-
-             if (user == null)
-             {
-                 return new ActionResponse<User>
-                 {
-                     MasSuccess = false,
-                     Message = "ERR001"
-                 };
-             }
-
-             return new ActionResponse<User>
-             {
-                 MasSuccess = true,
-                 Result = user
-             };
-         }
-
-         public override async Task<ActionResponse<IEnumerable<User>>> GetAsync()
-         {
-             var users = await _context.Users
-                 .Include(x => x.City)
-                 .ToListAsync();
-             return new ActionResponse<IEnumerable<User>>
-             {
-                 MasSuccess = true,
-                 Result = users
-             };
-         }
+        public async Task<ActionResponse<IEnumerable<User>>> GetAsync()
+        {
+            var users = await _context.Users
+                .Include(x => x.City)
+                .ToListAsync();
+            return new ActionResponse<IEnumerable<User>>
+            {
+                MasSuccess = true,
+                Result = users
+            };
+        }
 
         public async Task<IEnumerable<User>> GetComboAsync()
         {
             return await _context.Users
-                .OrderBy(x => x.Name)
+                .OrderBy(x => x.FullName)
                 .ToListAsync();
         }
 
-        public override async Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination)
+        public async Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination)
         {
             var queryable = _context.Users
                 .Include(x => x.City)
-                .OrderBy(x => x.Name)
+                .OrderBy(x => x.FullName)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
-                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+                queryable = queryable.Where(x => x.FullName.ToLower().Contains(pagination.Filter.ToLower()));
             }
 
             return new ActionResponse<IEnumerable<User>>
             {
                 WasSuccess = true,
                 Result = await queryable
-                    .OrderBy(x => x.Name)
+                    .OrderBy(x => x.FullName)
                     .Paginate(pagination)
                     .ToListAsync()
             };
@@ -100,7 +78,7 @@ namespace Mahalo.Back.Repositories.Implementation
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
-                queryable = queryable.Where(x => x.Name.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase));
+                queryable = queryable.Where(x => x.FullName.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase));
             }
 
             double count = await queryable.CountAsync();
@@ -111,30 +89,7 @@ namespace Mahalo.Back.Repositories.Implementation
             };
         }
 
-        public Task<User> GetUserAsync(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IdentityResult> AddUserAsync(User user, string password)
-        {
-            return await _userManager.CreateAsync(user, password);
-        }
-
-        public Task CheckRoleAsync(string roleName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddUserToRoleAsync(User user, string roleName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> IsUserInRoleAsync(User user, string roleName)
-        {
-            throw new NotImplementedException();
-        }*/
+        //
 
         public async Task<User> GetUserAsync(Guid userId)
         {

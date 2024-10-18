@@ -2,20 +2,19 @@
 using Mahalo.Shared.Entities;
 using Mahalo.Shared.Response;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Mahalo.Back.Repositories.Interfaces
 {
     public interface IUsersRepository
     {
-        //Task<ActionResponse<User>> GetAsync(int id);
+        Task<ActionResponse<IEnumerable<User>>> GetAsync();
 
-        //Task<ActionResponse<IEnumerable<User>>> GetAsync();
+        Task<IEnumerable<User>> GetComboAsync();
 
-        //Task<IEnumerable<User>> GetComboAsync();
+        Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination);
 
-        //Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination);
-
-        //Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
+        Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
 
         //
 
