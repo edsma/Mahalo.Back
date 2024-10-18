@@ -217,13 +217,13 @@ public class AccountsController : ControllerBase
             return NotFound();
         }
 
-        var response = await SendRecoverEmailAsync(user, model.Language);
-        if (response.WasSuccess)
+        //var response = await SendRecoverEmailAsync(user, model.Language);
+        if (true)
         {
             return NoContent();
         }
 
-        return BadRequest(response.Message);
+        return BadRequest("");
     }
 
     [HttpPost("ResetPassword")]
@@ -244,6 +244,7 @@ public class AccountsController : ControllerBase
         return BadRequest(result.Errors.FirstOrDefault()!.Description);
     }
 
+    [HttpPost("SendRecoverEmailAsync")]
     public async Task<ActionResponse<string>> SendRecoverEmailAsync(User user, string language)
     {
         var myToken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(user);

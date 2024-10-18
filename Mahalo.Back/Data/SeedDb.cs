@@ -1,7 +1,10 @@
 ﻿using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.Entities;
 using Mahalo.Shared.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Mahalo.Back.Data;
 
@@ -9,11 +12,13 @@ public class SeedDb
 {
     private readonly DataContext _context;
     private readonly IUsersUnitOfWork _usersUnitOfWork;
+    private readonly IServiceProvider _serviceProvider;
     private readonly DateTime _creationDate = DateTime.Now;
 
-    public SeedDb(DataContext context, IUsersUnitOfWork usersUnitOfWork)
+    public SeedDb(DataContext context, IUsersUnitOfWork usersUnitOfWork, IServiceProvider serviceProvider)
     {
         _context = context;
+        _serviceProvider = serviceProvider;
         _usersUnitOfWork = usersUnitOfWork;
     }
 
@@ -33,6 +38,7 @@ public class SeedDb
         await CheckNotificationsSchedulingResourcesAsync();
         await CheckResourcesAsync();
         await CheckResourcesDisorderAsync();
+        await CreateRoles();
         await CheckUsersAsync();
         await CheckTerapiesAsync();
 
@@ -46,6 +52,20 @@ public class SeedDb
         {
             var citiesSQLScript = File.ReadAllText("Data\\Cities.sql");
             await _context.Database.ExecuteSqlRawAsync(citiesSQLScript);
+        }
+    }
+
+    public async Task CreateRoles()
+    {
+        // Obtenemos el RoleManager
+        var roleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        string roleName = "ADMIN";
+        bool roleExists = await roleManager.RoleExistsAsync(roleName);
+
+        if (!roleExists)
+        {
+            // Creamos el rol si no existe
+            await roleManager.CreateAsync(new IdentityRole(roleName));
         }
     }
 

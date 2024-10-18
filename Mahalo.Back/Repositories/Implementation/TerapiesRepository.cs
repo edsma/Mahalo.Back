@@ -86,7 +86,7 @@ namespace Mahalo.Back.Repositories.Implementation
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
-                queryable = queryable.Where(x => x.Name.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase));
+                queryable = queryable.Where(x => x.Name.Contains(pagination.Filter));
             }
 
             double count = await queryable.CountAsync();

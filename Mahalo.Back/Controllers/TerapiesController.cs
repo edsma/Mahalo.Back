@@ -10,7 +10,7 @@ using System;
 namespace Mahalo.Back.Controllers;
 
 [ApiController]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/[controller]")]
 public class TerapiesController : GenericController<Terapy>
 {
