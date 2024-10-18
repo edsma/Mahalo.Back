@@ -19,7 +19,7 @@ public class ChangePasswordDTO
     [DataType(DataType.Password)]
     [Display(Name = "NewPassword", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
-    [StringLength(20, MinimumLength = 6, ErrorMessageResourceName = "LengthField", ErrorMessageResourceType = typeof(Literals))]
+    [StringLength(20, MinimumLength = 6, ErrorMessageResourceName = "LengthField")]
     public string NewPassword { get; set; } = null!;
 
     [Compare("NewPassword", ErrorMessageResourceName = "PasswordAndConfirmationDifferent", ErrorMessageResourceType = typeof(Literals))]

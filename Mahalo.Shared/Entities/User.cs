@@ -9,7 +9,7 @@ namespace Mahalo.Shared.Entities;
 public class User : IdentityUser
 {
     [Display(Name = "FirstName", ResourceType = typeof(Literals))]
-    [MaxLength(50, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [MaxLength(50, ErrorMessageResourceName = "MaxLength")]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public string FirstName { get; set; } = null!;
 
@@ -18,10 +18,10 @@ public class User : IdentityUser
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public string LastName { get; set; } = null!;
 
-    [Display(Name = "Image", ResourceType = typeof(Literals))]
+    [Display(Name = "Image")]
     public string? Photo { get; set; }
 
-    [Display(Name = "UserType", ResourceType = typeof(Literals))]
+    [Display(Name = "UserType")]
     public UserType UserType { get; set; }
 
     [Display(Name = "User", ResourceType = typeof(Literals))]

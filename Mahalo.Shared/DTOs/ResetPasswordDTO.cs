@@ -16,13 +16,13 @@ public class ResetPasswordDTO
     public string Email { get; set; } = null!;
 
     [DataType(DataType.Password)]
-    [Display(Name = "NewPassword", ResourceType = typeof(Literals))]
+    [Display(Name = "NewPassword")]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     [StringLength(20, MinimumLength = 6, ErrorMessageResourceName = "LengthField", ErrorMessageResourceType = typeof(Literals))]
     public string NewPassword { get; set; } = null!;
 
     [Compare("NewPassword", ErrorMessageResourceName = "PasswordAndConfirmationDifferent", ErrorMessageResourceType = typeof(Literals))]
-    [Display(Name = "PasswordConfirm", ResourceType = typeof(Literals))]
+    [Display(Name = "PasswordConfirm")]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     [StringLength(20, MinimumLength = 6, ErrorMessageResourceName = "LengthField", ErrorMessageResourceType = typeof(Literals))]
     public string ConfirmPassword { get; set; } = null!;

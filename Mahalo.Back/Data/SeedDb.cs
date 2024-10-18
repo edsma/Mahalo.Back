@@ -1,7 +1,10 @@
 ﻿using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.Entities;
 using Mahalo.Shared.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Mahalo.Back.Data;
 
@@ -9,11 +12,13 @@ public class SeedDb
 {
     private readonly DataContext _context;
     private readonly IUsersUnitOfWork _usersUnitOfWork;
+    private readonly IServiceProvider _serviceProvider;
     private readonly DateTime _creationDate = DateTime.Now;
 
-    public SeedDb(DataContext context, IUsersUnitOfWork usersUnitOfWork)
+    public SeedDb(DataContext context, IUsersUnitOfWork usersUnitOfWork, IServiceProvider serviceProvider)
     {
         _context = context;
+        _serviceProvider = serviceProvider;
         _usersUnitOfWork = usersUnitOfWork;
     }
 
@@ -33,11 +38,26 @@ public class SeedDb
         await CheckNotificationsSchedulingResourcesAsync();
         await CheckResourcesAsync();
         await CheckResourcesDisorderAsync();
+        CreateRoles().Wait();
         await CheckUsersAsync();
         await CheckTerapiesAsync();
 
         await CheckRolesAsync();
         await CheckUserAsync("Juan", "Zuluaga", "zulu@yopmail.com", "322 311 4620", UserType.Admin);
+    }
+
+    public async Task CreateRoles()
+    {
+        // Obtenemos el RoleManager
+        var roleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        string roleName = "ADMIN";
+        bool roleExists = await roleManager.RoleExistsAsync(roleName);
+
+        if (!roleExists)
+        {
+            // Creamos el rol si no existe
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
     }
 
     private async Task CheckCitiesAsync()
@@ -174,6 +194,7 @@ public class SeedDb
             //_context.Users.Add(new User { Name = "Homer Simpson", Email = "homer@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
             //_context.Users.Add(new User { Name = "Lisa Simpson", Email = "lisa@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
             //_context.Users.Add(new User { Name = "Maggie Simpson", Email = "maggie@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
+            //_context.Users.Add(new User { FirstName = "Maggie", LastName = "Simpson", Email = "maggie@yopmail.com", UserType = UserType.Admin, CreationDate = _creationDate, IsActive = true });
             await CheckUserAsync("Catherine", "Delgado", "yeiyicadepa@hotmail.com", "3113167415", UserType.Admin);
         }
 
