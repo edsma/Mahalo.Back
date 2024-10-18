@@ -24,7 +24,9 @@ public class AccountsController : ControllerBase
     private readonly DataContext _context;
     private readonly IFileStorage _fileStorage;
 
-    public AccountsController(IUsersUnitOfWork usersUnitOfWork, IConfiguration configuration, IMailHelper mailHelper, DataContext context, IFileStorage fileStorage)
+    public AccountsController(IUsersUnitOfWork usersUnitOfWork, IConfiguration configuration,
+        IMailHelper mailHelper, DataContext context,
+        IFileStorage fileStorage)
     {
         _usersUnitOfWork = usersUnitOfWork;
         _configuration = configuration;
@@ -34,9 +36,17 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("CreateUser")]
-    public async Task<IActionResult> CreateUser([FromBody] UserDTO model)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO model)
     {
-        User user = model;
+        City country = await _context.Cities.FindAsync(model.CityId)?? new City();
+        User user = new User { 
+            Email = model.Email,
+            FirstName = model.FirstName,
+            IsActive = true,
+            LastName = model.LastName,
+            UserName = model.UserName,
+            City = country
+        };
         var result = await _usersUnitOfWork.AddUserAsync(user, model.Password);
         if (result.Succeeded)
         {
@@ -111,13 +121,34 @@ public class AccountsController : ControllerBase
         {
             userid = user.Id,
             token = myToken
-        }, HttpContext.Request.Scheme, _configuration["Url Frontend"]);
+        }, HttpContext.Request.Scheme, _configuration["Url_Frontend"]);
+        var algo = _configuration["Url_Frontend"];
 
-        if (language == "es")
+        if (language.ToLower() == "es")
         {
             return _mailHelper.SendMail(user.FullName, user.Email!, _configuration["Mail:SubjectConfirmationEs"]!, string.Format(_configuration["Mail:BodyConfirmationEs"]!, tokenLink), language);
         }
         return _mailHelper.SendMail(user.FullName, user.Email!, _configuration["Mail:SubjectConfirmationEn"]!, string.Format(_configuration["Mail:BodyConfirmationEn"]!, tokenLink), language);
+    }
+
+    [HttpGet("ConfirmEmail")]
+    public async Task<IActionResult> ConfirmEmailAsync(string userId, string token)
+    {
+        token = token.Replace(" ", "+");
+        var user = await _usersUnitOfWork.GetUserAsync(new Guid(userId));
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var newtoken = await _usersUnitOfWork.GenerateEmailConfirmationTokenAsync(user);
+        var result = await _usersUnitOfWork.ConfirmEmailAsync(user, newtoken);
+        if (!result.Succeeded)
+        {
+            return BadRequest(result.Errors.FirstOrDefault());
+        }
+
+        return NoContent();
     }
 
     [HttpPost("ResedToken")]
@@ -217,13 +248,13 @@ public class AccountsController : ControllerBase
             return NotFound();
         }
 
-        var response = await SendRecoverEmailAsync(user, model.Language);
-        if (response.WasSuccess)
+        //var response = await SendRecoverEmailAsync(user, model.Language);
+        if (true)
         {
             return NoContent();
         }
 
-        return BadRequest(response.Message);
+        return BadRequest("");
     }
 
     [HttpPost("ResetPassword")]
@@ -252,7 +283,7 @@ public class AccountsController : ControllerBase
         {
             userid = user.Id,
             token = myToken
-        }, HttpContext.Request.Scheme, _configuration["Url Frontend"]);
+        }, HttpContext.Request.Scheme, _configuration["Url_Frontend"]);
 
         if (language == "es")
         {

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Mahalo.Back.Controllers;
 
 [ApiController]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/[controller]")]
 public class DisordersController : GenericController<Disorder>
 {

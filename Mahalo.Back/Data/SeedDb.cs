@@ -38,7 +38,7 @@ public class SeedDb
         await CheckNotificationsSchedulingResourcesAsync();
         await CheckResourcesAsync();
         await CheckResourcesDisorderAsync();
-        CreateRoles().Wait();
+        await CreateRoles();
         await CheckUsersAsync();
         await CheckTerapiesAsync();
 
@@ -66,6 +66,20 @@ public class SeedDb
         {
             var citiesSQLScript = File.ReadAllText("Data\\Cities.sql");
             await _context.Database.ExecuteSqlRawAsync(citiesSQLScript);
+        }
+    }
+
+    public async Task CreateRoles()
+    {
+        // Obtenemos el RoleManager
+        var roleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        string roleName = "ADMIN";
+        bool roleExists = await roleManager.RoleExistsAsync(roleName);
+
+        if (!roleExists)
+        {
+            // Creamos el rol si no existe
+            await roleManager.CreateAsync(new IdentityRole(roleName));
         }
     }
 
