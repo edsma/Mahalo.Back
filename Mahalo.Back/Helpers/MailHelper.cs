@@ -41,6 +41,7 @@ public class MailHelper : IMailHelper
 
             using (var client = new SmtpClient())
             {
+                client.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
                 client.Connect(smtp, int.Parse(port!), false);
                 client.Authenticate(from, password);
                 client.Send(message);

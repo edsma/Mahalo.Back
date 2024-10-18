@@ -61,7 +61,6 @@ namespace Mahalo.Back.Repositories.Implementation
         public override async Task<ActionResponse<IEnumerable<Terapy>>> GetAsync(PaginationDTO pagination)
         {
             var queryable = _context.Terapies
-                .Include(x => x.Id)
                 .OrderBy(x => x.HourTerapy)
                 .AsQueryable();
 
