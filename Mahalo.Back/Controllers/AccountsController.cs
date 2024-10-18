@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics.Metrics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -216,7 +217,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("changePassword")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> ChangePasswordAsync(ChangePasswordDTO model)
     {
         if (!ModelState.IsValid)
@@ -224,7 +225,8 @@ public class AccountsController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var user = await _usersUnitOfWork.GetUserAsync(User.Identity!.Name!);
+        //var user = await _usersUnitOfWork.GetUserAsync(User.Identity!.Name!);
+        var user = await _usersUnitOfWork.GetUserAsync(new Guid("d8debfb9-f0f9-4498-89c9-7db58cf5bb8a"));
         if (user == null)
         {
             return NotFound();
@@ -276,19 +278,27 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("SendRecoverEmailAsync")]
-    public async Task<ActionResponse<string>> SendRecoverEmailAsync(User user, string language)
+    public async Task<ActionResponse<string>> SendRecoverEmailAsync(CreateUserDTO user, string language)
     {
-        var myToken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(user);
+        User searchUser = new User
+        {
+            Email = user.Email,
+            FirstName = user.FirstName,
+            IsActive = true,
+            LastName = user.LastName,
+            UserName = user.UserName,
+        };
+        var myToken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(searchUser);
         var tokenLink = Url.Action("ResetPassword", "accounts", new
         {
-            userid = user.Id,
+            userid = searchUser.Id,
             token = myToken
         }, HttpContext.Request.Scheme, _configuration["Url_Frontend"]);
 
         if (language == "es")
         {
-            return _mailHelper.SendMail(user.FullName, user.Email!, _configuration["Mail:SubjectRecoveryEs"]!, string.Format(_configuration["Mail:BodyRecoveryEs"]!, tokenLink), language);
+            return _mailHelper.SendMail(searchUser.FullName, user.Email!, _configuration["Mail:SubjectRecoveryEs"]!, string.Format(_configuration["Mail:BodyRecoveryEs"]!, tokenLink), language);
         }
-        return _mailHelper.SendMail(user.FullName, user.Email!, _configuration["Mail:SubjectRecoveryEn"]!, string.Format(_configuration["Mail:BodyRecoveryEn"]!, tokenLink), language);
+        return _mailHelper.SendMail(searchUser.FullName, user.Email!, _configuration["Mail:SubjectRecoveryEn"]!, string.Format(_configuration["Mail:BodyRecoveryEn"]!, tokenLink), language);
     }
 }

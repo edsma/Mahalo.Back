@@ -69,19 +69,7 @@ public class SeedDb
         }
     }
 
-    public async Task CreateRoles()
-    {
-        // Obtenemos el RoleManager
-        var roleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        string roleName = "ADMIN";
-        bool roleExists = await roleManager.RoleExistsAsync(roleName);
 
-        if (!roleExists)
-        {
-            // Creamos el rol si no existe
-            await roleManager.CreateAsync(new IdentityRole(roleName));
-        }
-    }
 
     private async Task CheckCountriesAsync()
     {
