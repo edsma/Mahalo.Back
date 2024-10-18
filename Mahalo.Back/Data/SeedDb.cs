@@ -46,6 +46,20 @@ public class SeedDb
         await CheckUserAsync("Juan", "Zuluaga", "zulu@yopmail.com", "322 311 4620", UserType.Admin);
     }
 
+    public async Task CreateRoles()
+    {
+        // Obtenemos el RoleManager
+        var roleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        string roleName = "ADMIN";
+        bool roleExists = await roleManager.RoleExistsAsync(roleName);
+
+        if (!roleExists)
+        {
+            // Creamos el rol si no existe
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+    }
+
     private async Task CheckCitiesAsync()
     {
         if (!_context.Cities.Any())
@@ -194,6 +208,7 @@ public class SeedDb
             //_context.Users.Add(new User { Name = "Homer Simpson", Email = "homer@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
             //_context.Users.Add(new User { Name = "Lisa Simpson", Email = "lisa@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
             //_context.Users.Add(new User { Name = "Maggie Simpson", Email = "maggie@yopmail.com", Password = "123456", CreationDate = _creationDate, IsActive = true });
+            //_context.Users.Add(new User { FirstName = "Maggie", LastName = "Simpson", Email = "maggie@yopmail.com", UserType = UserType.Admin, CreationDate = _creationDate, IsActive = true });
             await CheckUserAsync("Catherine", "Delgado", "yeiyicadepa@hotmail.com", "3113167415", UserType.Admin);
         }
 

@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahalo.Back.Migrations
 {
     [DbContext(typeof(DataContext))]
+<<<<<<<< HEAD:Mahalo.Back/Migrations/20241018162941_InitialCreate.Designer.cs
     [Migration("20241018162941_InitialCreate")]
     partial class InitialCreate
+========
+    [Migration("20241018044054_InitialDb")]
+    partial class InitialDb
+>>>>>>>> origin/QA:Mahalo.Back/Migrations/20241018044054_InitialDb.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -476,14 +481,24 @@ namespace Mahalo.Back.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
+<<<<<<<< HEAD:Mahalo.Back/Migrations/20241018162941_InitialCreate.Designer.cs
                         .HasColumnType("nvarchar(max)");
+========
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+>>>>>>>> origin/QA:Mahalo.Back/Migrations/20241018044054_InitialDb.Designer.cs
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+<<<<<<<< HEAD:Mahalo.Back/Migrations/20241018162941_InitialCreate.Designer.cs
                         .HasColumnType("nvarchar(max)");
+========
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+>>>>>>>> origin/QA:Mahalo.Back/Migrations/20241018044054_InitialDb.Designer.cs
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

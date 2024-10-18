@@ -11,8 +11,10 @@ public class User : IdentityUser
 
     public string LastName { get; set; } = null!;
 
+    [Display(Name = "Image")]
     public string? Photo { get; set; }
 
+    [Display(Name = "UserType")]
     public UserType UserType { get; set; }
 
     public string FullName => $"{FirstName} {LastName}";
