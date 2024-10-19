@@ -39,13 +39,15 @@ public class AccountsController : ControllerBase
     [HttpPost("CreateUser")]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO model)
     {
-        City country = await _context.Cities.FindAsync(model.CityId)?? new City();
-        User user = new User { 
+        City country = await _context.Cities.FindAsync(model.CityId) ?? new City();
+        User user = new User
+        {
             Email = model.Email,
             FirstName = model.FirstName,
             IsActive = true,
             LastName = model.LastName,
             UserName = model.UserName,
+            Photo = model.Photo,
             City = country
         };
         var result = await _usersUnitOfWork.AddUserAsync(user, model.Password);
@@ -185,7 +187,7 @@ public class AccountsController : ControllerBase
             if (!string.IsNullOrEmpty(user.Photo))
             {
                 var photoUser = Convert.FromBase64String(user.Photo);
-                //user.Photo = await _fileStorage.SaveFileAsync(photoUser, ".jpg", _container);
+                user.Photo = await _fileStorage.SaveFileAsync(photoUser, ".jpg", "users");
             }
 
             currentUser.DocumentType = user.DocumentType;
