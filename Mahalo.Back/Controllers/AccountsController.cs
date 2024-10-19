@@ -185,9 +185,13 @@ public class AccountsController : ControllerBase
             }
 
             if (!string.IsNullOrEmpty(user.Photo))
+            //if (!string.IsNullOrEmpty(user.Photo) && System.IO.File.Exists(user.Photo))
             {
                 var photoUser = Convert.FromBase64String(user.Photo);
+                //var photoBytes = await System.IO.File.ReadAllBytesAsync(user.Photo);
                 user.Photo = await _fileStorage.SaveFileAsync(photoUser, ".jpg", "users");
+
+                //await _fileStorage.SaveFileAsync(photoBytes, ".jpg", "users");
             }
 
             currentUser.DocumentType = user.DocumentType;
