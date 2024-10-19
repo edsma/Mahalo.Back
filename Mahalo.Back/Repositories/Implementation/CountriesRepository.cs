@@ -86,10 +86,10 @@ public class CountriesRepository : GenericRepository<Country>, ICountriesReposit
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
-            queryable = queryable.Where(x => x.Name.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase));
+            queryable = queryable.Where(x => x.Name.Contains(pagination.Filter));
         }
 
-        double count = await queryable.CountAsync();
+        int count =  await queryable.CountAsync();
         return new ActionResponse<int>
         {
             WasSuccess = true,
