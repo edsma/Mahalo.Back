@@ -217,7 +217,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("changePassword")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> ChangePasswordAsync(ChangePasswordDTO model)
     {
         if (!ModelState.IsValid)
@@ -225,8 +225,7 @@ public class AccountsController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        //var user = await _usersUnitOfWork.GetUserAsync(User.Identity!.Name!);
-        var user = await _usersUnitOfWork.GetUserAsync(new Guid("d8debfb9-f0f9-4498-89c9-7db58cf5bb8a"));
+        var user = await _usersUnitOfWork.GetUserAsync(User.Identity!.Name!);
         if (user == null)
         {
             return NotFound();
