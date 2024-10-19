@@ -11,8 +11,8 @@ namespace Mahalo.Shared.DTOs
         public string Password { get; set; } = null!;
         public string Language { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
-        public UserType UserType { get; set; } 
-        public int CityId { get; set; } 
-
+        public string Photo { get; set; } = null!;
+        public UserType UserType { get; set; }
+        public int CityId { get; set; }
     }
 }

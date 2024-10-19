@@ -22,13 +22,15 @@ namespace Mahalo.Back.Repositories.Implementation
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IFileStorage _fileStorage;
 
-        public UsersRepository(DataContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
+        public UsersRepository(DataContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager, IFileStorage fileStorage)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _fileStorage = fileStorage;
         }
 
         public async Task<ActionResponse<IEnumerable<User>>> GetAsync()
@@ -119,7 +121,14 @@ namespace Mahalo.Back.Repositories.Implementation
         }
 
         public async Task<IdentityResult> AddUserAsync(User user, string password)
+
         {
+            if (!string.IsNullOrEmpty(user.Photo))
+            {
+                var imageBase64 = Convert.FromBase64String(user.Photo!);
+                user.Photo = await _fileStorage.SaveFileAsync(imageBase64, ".jpg", "users");
+            }
+
             return await _userManager.CreateAsync(user, password);
         }
 
@@ -159,6 +168,11 @@ namespace Mahalo.Back.Repositories.Implementation
 
         public async Task<IdentityResult> UpdateUserAsync(User user)
         {
+            if (!string.IsNullOrEmpty(user.Photo))
+            {
+                var imageBase64 = Convert.FromBase64String(user.Photo!);
+                user.Photo = await _fileStorage.SaveFileAsync(imageBase64, ".jpg", "users");
+            }
             return await _userManager.UpdateAsync(user);
         }
 
