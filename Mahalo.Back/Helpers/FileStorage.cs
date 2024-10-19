@@ -1,4 +1,7 @@
-﻿namespace Mahalo.Back.Helpers
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+
+namespace Mahalo.Back.Helpers
 {
     public class FileStorage : IFileStorage
     {
