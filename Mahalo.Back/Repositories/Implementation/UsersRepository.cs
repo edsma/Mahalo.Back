@@ -48,7 +48,7 @@ namespace Mahalo.Back.Repositories.Implementation
         public async Task<IEnumerable<User>> GetComboAsync()
         {
             return await _context.Users
-                .OrderBy(x => x.FullName)
+                .OrderBy(x => x.Id)
                 .ToListAsync();
         }
 
@@ -56,7 +56,7 @@ namespace Mahalo.Back.Repositories.Implementation
         {
             var queryable = _context.Users
                 .Include(x => x.City)
-                .OrderBy(x => x.FullName)
+                .OrderBy(x => x.Id)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
@@ -68,7 +68,7 @@ namespace Mahalo.Back.Repositories.Implementation
             {
                 WasSuccess = true,
                 Result = await queryable
-                    .OrderBy(x => x.FullName)
+                    .OrderBy(x => x.Id)
                     .Paginate(pagination)
                     .ToListAsync()
             };
@@ -170,8 +170,8 @@ namespace Mahalo.Back.Repositories.Implementation
         {
             if (!string.IsNullOrEmpty(user.Photo))
             {
-                var imageBase64 = Convert.FromBase64String(user.Photo!);
-                user.Photo = await _fileStorage.SaveFileAsync(imageBase64, ".jpg", "users");
+                //var imageBase64 = Convert.FromBase64String(user.Photo!);
+                //user.Photo = await _fileStorage.SaveFileAsync(imageBase64, ".jpg", "users");
             }
             return await _userManager.UpdateAsync(user);
         }
