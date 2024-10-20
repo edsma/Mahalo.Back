@@ -10,6 +10,7 @@ public class User : IdentityUser
     public string FirstName { get; set; } = null!;
 
     public string LastName { get; set; } = null!;
+    public string? NumberDocument { get; set; } = null!;
 
     [Display(Name = "Image")]
     public string? Photo { get; set; }
