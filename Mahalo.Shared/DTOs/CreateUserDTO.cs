@@ -14,5 +14,6 @@ namespace Mahalo.Shared.DTOs
         public string Photo { get; set; } = null!;
         public UserType UserType { get; set; }
         public int CityId { get; set; }
+        public int documentTypeId { get; set; }
     }
 }

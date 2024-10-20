@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahalo.Back.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241020022925_AddNewValue")]
+    [Migration("20241020050900_AddNewValue")]
     partial class AddNewValue
     {
         /// <inheritdoc />
