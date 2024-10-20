@@ -12,4 +12,5 @@ public class TokenDTO
 
     public DateTime Expiration { get; set; }
     public int UserType { get; set; }
+    public string Photo{ get; set; }
 }

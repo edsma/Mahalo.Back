@@ -30,9 +30,20 @@ namespace Mahalo.Back.Controllers
             var action = await _countriesUnitOfWork.GetTotalRecordsAsync(pagination);
             if (response.WasSuccess)
             {
-                ResponseQuery<Country> query = new ResponseQuery<Country>
+                List<CountryDto> responseCountries = new List<CountryDto>();
+                foreach (var item in response.Result)
                 {
-                    Data = response.Result!.ToList(),
+                    responseCountries.Add(new CountryDto
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        CreationDate = item.CreationDate,
+                        IsActive = item.IsActive
+                    });
+                }
+                ResponseQuery<CountryDto> query = new ResponseQuery<CountryDto>
+                {
+                    Data = responseCountries.ToList(),
                     total = action.Result.ToString()
                 };
                 return Ok(query);

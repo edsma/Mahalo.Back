@@ -3,6 +3,7 @@ using Mahalo.Back.Helpers;
 using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
+using Mahalo.Shared.Enums;
 using Mahalo.Shared.Response;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -117,7 +118,8 @@ public class AccountsController : ControllerBase
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token),
             Expiration = expiration,
-            UserType = Convert.ToInt32(user.UserType)
+            UserType = Convert.ToInt32(user.UserType),
+            Photo = user.Photo
         };
     }
 
@@ -178,7 +180,7 @@ public class AccountsController : ControllerBase
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPut]
-    public async Task<IActionResult> PutAsync(User user)
+    public async Task<IActionResult> PutAsync(UserDTO user)
     {
         try
         {
@@ -198,12 +200,14 @@ public class AccountsController : ControllerBase
                 //await _fileStorage.SaveFileAsync(photoBytes, ".jpg", "users");
             }
 
-            currentUser.DocumentType = user.DocumentType;
+            currentUser.UserType = (UserType) user.UserType;
+            currentUser.NumberDocument = user.DocumentNumber;
+            currentUser.DocumentTypeId = user.DocumentTypeId;
             currentUser.FirstName = user.FirstName;
             currentUser.LastName = user.LastName;
             currentUser.PhoneNumber = user.PhoneNumber;
             currentUser.Photo = !string.IsNullOrEmpty(user.Photo) && user.Photo != currentUser.Photo ? user.Photo : currentUser.Photo;
-            currentUser.City = user.City;
+    
 
             var result = await _usersUnitOfWork.UpdateUserAsync(currentUser);
             if (result.Succeeded)

@@ -2,6 +2,7 @@
 using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
+using Mahalo.Shared.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -25,14 +26,44 @@ public class UsersController : GenericController<User>
         var action = await _usersUnitOfWork.GetTotalRecordsAsync(pagination);
         if (response.WasSuccess)
         {
-            ResponseQuery<User> query = new ResponseQuery<User>
+            List<UserDTO> responseUsers = new List<UserDTO>();
+            foreach (var item in response.Result)
             {
-                Data = response.Result!.ToList(),
+                responseUsers.Add(new UserDTO
+                {
+                    Id = item.Id,
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    Email = item.Email,
+                    CreationDate = item.CreationDate,
+                    IsActive = item.IsActive,
+                    Photo = item.Photo
+                });
+            }
+            ResponseQuery<UserDTO> query = new ResponseQuery<UserDTO>
+            {
+                Data = responseUsers,
                 total = action.Result.ToString()
             };
             return Ok(query);
         }
         return BadRequest();
+    }
+
+    [HttpPut("EditAsyncDto")]
+    public async Task<IActionResult> EditAsync(UserDTO model)
+    {
+        var user = await _usersUnitOfWork.GetUserAsync(model.Email);
+        user.FirstName = model.FirstName!;
+        user.LastName = model.LastName!;
+        user.IsActive = model.IsActive;
+        user.UserType = (UserType)Convert.ToInt32(user.UserType);
+        var response = await _usersUnitOfWork.UpdateUserAsync(user);
+        if (response.Succeeded)
+        {
+            return Ok(model);
+        }
+        return BadRequest(response.Errors);
     }
 
     [HttpGet("totalRecordsPaginated")]
