@@ -15,10 +15,14 @@ namespace Mahalo.Back.Controllers;
 public class StatesController : GenericController<State>
 {
     private readonly IStatesUnitOfWork _statesUnitOfWork;
+    private readonly ICountriesUnitOfWork _countriesUnitOfWork;
+    private readonly IGenericUnitOfWork<State> _unitOfWork;
 
-    public StatesController(IGenericUnitOfWork<State> unitOfWork, IStatesUnitOfWork statesUnitOfWork) : base(unitOfWork)
+    public StatesController(IGenericUnitOfWork<State> unitOfWork, IStatesUnitOfWork statesUnitOfWork, ICountriesUnitOfWork countriesUnitOfWork) : base(unitOfWork)
     {
         _statesUnitOfWork = statesUnitOfWork;
+        _unitOfWork = unitOfWork;
+        _countriesUnitOfWork = countriesUnitOfWork; 
     }
 
     [HttpGet("paginated")]
@@ -48,6 +52,39 @@ public class StatesController : GenericController<State>
             return Ok(query);
         }
         return BadRequest();
+    }
+
+    [HttpPost("PostAsyncDto")]
+    public async Task<IActionResult> PostAsync(StateDto model)
+    {
+        var state = await _countriesUnitOfWork.GetAsync(model.CountryId);
+
+        var response = await _unitOfWork.AddAsync(new State
+        {
+            CreationDate = DateTime.Now,
+            IsActive = model.IsActive,
+            Name = model.Name!,
+            Country = state.Result!,
+        });
+        if (response.WasSuccess)
+        {
+            return Ok(model);
+        }
+        return BadRequest(response.Message);
+    }
+
+    [HttpPut("EditAsyncDto")]
+    public async Task<IActionResult> EditAsync(StateDto model)
+    {
+        var state = await _unitOfWork.GetAsync(model.Id);
+        state.Result!.Name = model.Name!;
+        state.Result!.IsActive = model.IsActive!;
+        var response = await _unitOfWork.UpdateAsync(state.Result!);
+        if (response.WasSuccess)
+        {
+            return Ok(model);
+        }
+        return BadRequest(response.Message);
     }
 
     [HttpGet("totalRecordsPaginated")]

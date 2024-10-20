@@ -40,6 +40,8 @@ public class AccountsController : ControllerBase
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO model)
     {
         City country = await _context.Cities.FindAsync(model.CityId) ?? new City();
+        DocumentType documentType = await _context.DocumentTypes.FindAsync(model.documentTypeId) ?? new DocumentType();
+
         User user = new User
         {
             Email = model.Email,
@@ -48,7 +50,8 @@ public class AccountsController : ControllerBase
             LastName = model.LastName,
             UserName = model.UserName,
             Photo = model.Photo,
-            City = country
+            City = country,
+            DocumentType = documentType
         };
         var result = await _usersUnitOfWork.AddUserAsync(user, model.Password);
         if (result.Succeeded)
@@ -113,7 +116,8 @@ public class AccountsController : ControllerBase
         return new TokenDTO
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token),
-            Expiration = expiration
+            Expiration = expiration,
+            UserType = Convert.ToInt32(user.UserType)
         };
     }
 

@@ -18,6 +18,6 @@ namespace Mahalo.Shared.DTOs
 
         public DateTime CreationDate { get; set; }
 
-        public ICollection<StateDto> States { get; set; } = null!;
+        public ICollection<StateDto>? States { get; set; } = null;
     }
 }
