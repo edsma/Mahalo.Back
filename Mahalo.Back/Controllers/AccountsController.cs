@@ -127,8 +127,11 @@ public class AccountsController : ControllerBase
     private async Task<ActionResponse<string>> SendConfirmationEmailAsync(User user, string language)
     {
         var myToken = await _usersUnitOfWork.GenerateEmailConfirmationTokenAsync(user);
-        var tokenLink = $"http://{_configuration["Url_FrontendAngular"]}/#/confirm?userid={user.Email}&token={myToken}";
-
+        var tokenLink = Url.Action("ConfirmEmail", "accounts", new
+        {
+            userid = user.Id,
+            token = myToken
+        }, HttpContext.Request.Scheme, _configuration["Url_Frontend"]);
         var algo = _configuration["Url_Frontend"];
 
         if (language.ToLower() == "es")
@@ -142,7 +145,7 @@ public class AccountsController : ControllerBase
     public async Task<IActionResult> ConfirmEmailAsync(string userId, string token)
     {
         token = token.Replace(" ", "+");
-        var user = await _usersUnitOfWork.GetUserAsync(userId);
+        var user = await _usersUnitOfWork.GetUserAsync(new Guid(userId));
         if (user == null)
         {
             return NotFound();
@@ -155,7 +158,7 @@ public class AccountsController : ControllerBase
             return BadRequest(result.Errors.FirstOrDefault());
         }
 
-        return Ok("OK");
+        return NoContent();
     }
 
     [HttpPost("ResedToken")]
