@@ -198,14 +198,14 @@ public class AccountsController : ControllerBase
                 //await _fileStorage.SaveFileAsync(photoBytes, ".jpg", "users");
             }
 
-            currentUser.UserType = (UserType) user.UserType;
+            currentUser.UserType = (UserType)user.UserType;
             currentUser.NumberDocument = user.DocumentNumber;
             currentUser.DocumentTypeId = user.DocumentTypeId;
             currentUser.FirstName = user.FirstName;
             currentUser.LastName = user.LastName;
             currentUser.PhoneNumber = user.PhoneNumber;
             currentUser.Photo = !string.IsNullOrEmpty(user.Photo) && user.Photo != currentUser.Photo ? user.Photo : currentUser.Photo;
-    
+
 
             var result = await _usersUnitOfWork.UpdateUserAsync(currentUser);
             if (result.Succeeded)
@@ -268,7 +268,7 @@ public class AccountsController : ControllerBase
             UserName = user.UserName,
 
         };
-         
+
         var response = await SendRecoverEmailAsync(create, model.Language, user.Id);
         if (response.WasSuccess)
         {
@@ -299,7 +299,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("SendRecoverEmailAsync")]
-    public async Task<ActionResponse<string>> SendRecoverEmailAsync(CreateUserDTO user, string language,string idUser)
+    public async Task<ActionResponse<string>> SendRecoverEmailAsync(CreateUserDTO user, string language, string idUser)
     {
         User searchUser = new User
         {
@@ -312,8 +312,8 @@ public class AccountsController : ControllerBase
 
         var myToken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(searchUser);
         var tokenLink = $"http://{_configuration["Url_FrontendAngular"]}/#/reset?userid={user.Email}&token={myToken}";
-            
-       
+
+
 
         if (language == "es")
         {
