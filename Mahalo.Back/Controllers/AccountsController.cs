@@ -13,6 +13,7 @@ using System.Diagnostics.Metrics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using static System.Net.WebRequestMethods;
 
 namespace Mahalo.Back.Controllers;
 
@@ -262,9 +263,17 @@ public class AccountsController : ControllerBase
         {
             return NotFound();
         }
+        CreateUserDTO create = new CreateUserDTO
+        {
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            UserName = user.UserName,
 
-        //var response = await SendRecoverEmailAsync(user, model.Language);
-        if (true)
+        };
+         
+        var response = await SendRecoverEmailAsync(create, model.Language, user.Id);
+        if (response.WasSuccess)
         {
             return NoContent();
         }
@@ -275,13 +284,15 @@ public class AccountsController : ControllerBase
     [HttpPost("ResetPassword")]
     public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordDTO model)
     {
+
         var user = await _usersUnitOfWork.GetUserAsync(model.Email);
         if (user == null)
         {
             return NotFound();
         }
 
-        var result = await _usersUnitOfWork.ResetPasswordAsync(user, model.Token, model.NewPassword);
+        var newtoken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(user);
+        var result = await _usersUnitOfWork.ResetPasswordAsync(user, newtoken, model.NewPassword);
         if (result.Succeeded)
         {
             return NoContent();
@@ -291,7 +302,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("SendRecoverEmailAsync")]
-    public async Task<ActionResponse<string>> SendRecoverEmailAsync(CreateUserDTO user, string language)
+    public async Task<ActionResponse<string>> SendRecoverEmailAsync(CreateUserDTO user, string language,string idUser)
     {
         User searchUser = new User
         {
@@ -301,12 +312,11 @@ public class AccountsController : ControllerBase
             LastName = user.LastName,
             UserName = user.UserName,
         };
+
         var myToken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(searchUser);
-        var tokenLink = Url.Action("ResetPassword", "accounts", new
-        {
-            userid = searchUser.Id,
-            token = myToken
-        }, HttpContext.Request.Scheme, _configuration["Url_Frontend"]);
+        var tokenLink = $"http://{_configuration["Url_FrontendAngular"]}/#/reset?userid={user.Email}&token={myToken}";
+            
+       
 
         if (language == "es")
         {
