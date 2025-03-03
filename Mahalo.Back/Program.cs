@@ -50,7 +50,8 @@ builder.Services.AddSwaggerGen(c =>
         });
 });
 
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
+string connectionString = builder.Configuration.GetConnectionString("LocalConnection");
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(connectionString));
 builder.Services.AddTransient<SeedDb>();
 
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
@@ -119,13 +120,13 @@ builder.Services.AddScoped<IMailHelper, MailHelper>();
 
 var app = builder.Build();
 
-SeedData(app);
+//SeedData(app);
 
 void SeedData(WebApplication app)
 {
     var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
     using var scope = scopedFactory!.CreateScope();
-    
+
     var service = scope.ServiceProvider.GetService<SeedDb>();
     service!.SeedAsync().Wait();
 }
@@ -133,9 +134,12 @@ void SeedData(WebApplication app)
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
 }
+
+
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseDeveloperExceptionPage();
 
 app.UseCors(x => x
     .AllowAnyMethod()

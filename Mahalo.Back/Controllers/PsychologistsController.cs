@@ -1,11 +1,7 @@
-﻿using Mahalo.Back.UnitsOfWork.Implementation;
-using Mahalo.Back.UnitsOfWork.Interfaces;
+﻿using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Mahalo.Back.Controllers;
 
@@ -18,7 +14,7 @@ public class PsychologistsController : GenericController<Psychologist>
     private readonly ICitiesUnitOfWork _citiesUnitOfWork;
     private readonly IGenericUnitOfWork<Psychologist> _unitOfWork;
 
-    public PsychologistsController(IGenericUnitOfWork<Psychologist> unitOfWork, ICitiesUnitOfWork citiesUnitOfWork,  IPsychologistsUnitOfWork psychologistsUnitOfWork) : base(unitOfWork)
+    public PsychologistsController(IGenericUnitOfWork<Psychologist> unitOfWork, ICitiesUnitOfWork citiesUnitOfWork, IPsychologistsUnitOfWork psychologistsUnitOfWork) : base(unitOfWork)
     {
         _psychologistsUnitOfWork = psychologistsUnitOfWork;
         _unitOfWork = unitOfWork;
@@ -59,7 +55,7 @@ public class PsychologistsController : GenericController<Psychologist>
             XCoordinate = model.XCoordinate,
             YCoordinate = model.YCoordinate,
             City = city.Result!
-            
+
         });
         if (response.WasSuccess)
         {

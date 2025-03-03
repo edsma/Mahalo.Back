@@ -9,11 +9,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Diagnostics.Metrics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using static System.Net.WebRequestMethods;
 
 namespace Mahalo.Back.Controllers;
 
@@ -49,6 +47,7 @@ public class AccountsController : ControllerBase
             Email = model.Email,
             FirstName = model.FirstName,
             IsActive = true,
+            CreationDate = DateTime.Now,
             LastName = model.LastName,
             UserName = model.UserName,
             Photo = model.Photo,

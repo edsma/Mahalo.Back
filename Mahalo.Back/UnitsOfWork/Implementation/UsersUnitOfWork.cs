@@ -1,5 +1,4 @@
-﻿using Mahalo.Back.Repositories.Implementation;
-using Mahalo.Back.Repositories.Interfaces;
+﻿using Mahalo.Back.Repositories.Interfaces;
 using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;

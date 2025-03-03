@@ -16,6 +16,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         _dataContext = context;
         _entity = context.Set<T>();
+
     }
 
     public virtual async Task<ActionResponse<T>> AddAsync(T entity)

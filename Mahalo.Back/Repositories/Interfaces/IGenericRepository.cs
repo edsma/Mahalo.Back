@@ -1,5 +1,4 @@
 ﻿using Mahalo.Shared.DTOs;
-using Mahalo.Shared.Entities;
 using Mahalo.Shared.Response;
 
 namespace Mahalo.Back.Repositories.Interfaces;

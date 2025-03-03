@@ -3,8 +3,6 @@ using Mahalo.Shared.Entities;
 using Mahalo.Shared.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Mahalo.Back.Data;
 

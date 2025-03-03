@@ -1,15 +1,6 @@
-﻿using Mahalo.Shared.Entities;
-using Mahalo.Shared.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Mahalo.Shared.DTOs;
 
-namespace Mahalo.Shared.DTOs;
-
-public class UserDTO 
+public class UserDTO
 {
 
     public string Language { get; set; } = null!;
