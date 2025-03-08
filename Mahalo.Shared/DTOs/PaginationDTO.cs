@@ -1,4 +1,6 @@
-﻿namespace Mahalo.Shared.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Mahalo.Shared.DTOs
 {
     public class PaginationDTO
     {
@@ -9,5 +11,8 @@
         public int RecordsNumber { get; set; } = 6;
 
         public string? Filter { get; set; }
+
+        public string? UserId { get; set; }
+
     }
 }

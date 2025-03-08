@@ -1,4 +1,5 @@
 ﻿using Mahalo.Shared.DTOs;
+using Mahalo.Shared.Entities;
 using Mahalo.Shared.Response;
 
 namespace Mahalo.Back.Repositories.Interfaces;
@@ -18,4 +19,6 @@ public interface IGenericRepository<T> where T : class
     Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination);
 
     Task<ActionResponse<int>> GetTotalRecordsAsync();
+
+
 }

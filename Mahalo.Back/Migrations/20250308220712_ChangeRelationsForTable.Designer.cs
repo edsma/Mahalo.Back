@@ -4,6 +4,7 @@ using Mahalo.Back.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahalo.Back.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250308220712_ChangeRelationsForTable")]
+    partial class ChangeRelationsForTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Country", b =>
@@ -78,7 +81,7 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Disorder", b =>
@@ -110,7 +113,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Disorders", (string)null);
+                    b.ToTable("Disorders");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.DocumentType", b =>
@@ -139,7 +142,7 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("DocumentTypes", (string)null);
+                    b.ToTable("DocumentTypes");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.NotificationHistory", b =>
@@ -166,7 +169,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("ResourceId");
 
-                    b.ToTable("NotificationsHistory", (string)null);
+                    b.ToTable("NotificationsHistory");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.NotificationScheduling", b =>
@@ -199,7 +202,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("NotificationsScheduling", (string)null);
+                    b.ToTable("NotificationsScheduling");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.NotificationSchedulingResource", b =>
@@ -232,7 +235,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("ResourceId");
 
-                    b.ToTable("NotificationsSchedulingResources", (string)null);
+                    b.ToTable("NotificationsSchedulingResources");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Psychologist", b =>
@@ -284,7 +287,7 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Psychologists", (string)null);
+                    b.ToTable("Psychologists");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Resource", b =>
@@ -297,11 +300,6 @@ namespace Mahalo.Back.Migrations
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -319,7 +317,7 @@ namespace Mahalo.Back.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("ResourceDisorderId")
+                    b.Property<int?>("ResourceDisorderId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -339,7 +337,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Resources", (string)null);
+                    b.ToTable("Resources");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.ResourceDisorder", b =>
@@ -371,7 +369,7 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("ResourcesDisorder", (string)null);
+                    b.ToTable("ResourcesDisorder");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.State", b =>
@@ -403,7 +401,7 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("States", (string)null);
+                    b.ToTable("States");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Terapy", b =>
@@ -445,7 +443,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Terapies", (string)null);
+                    b.ToTable("Terapies");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.User", b =>
@@ -759,8 +757,7 @@ namespace Mahalo.Back.Migrations
                     b.HasOne("Mahalo.Shared.Entities.ResourceDisorder", null)
                         .WithMany("Resource")
                         .HasForeignKey("ResourceDisorderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Mahalo.Shared.Entities.User", null)
                         .WithMany("Resources")

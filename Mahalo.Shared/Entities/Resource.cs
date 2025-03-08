@@ -11,8 +11,13 @@ public class Resource
     [Required]
     public string Name { get; set; } = null!;
 
-    [Display(Name = "Location")]
+    [Display(Name = "Name")]
     [MaxLength(100)]
+    [Required]
+    public string Description { get; set; } = null!;
+
+    [Display(Name = "Location")]
+    [MaxLength(500)]
     [Required]
     public string Location { get; set; } = null!;
 
@@ -32,11 +37,13 @@ public class Resource
     [Required]
     public bool IsActive { get; set; }
 
-    public ICollection<ResourceDisorder>? ResourcesDisorder { get; set; }
+    public int ResourceDisorderId { get; set; }
+    public string? UserId { get; set; }
+
+    //public ICollection<ResourceDisorder>? ResourcesDisorder { get; set; }
     public ICollection<NotificationHistory>? NotificationsHistory { get; set; }
     public ICollection<NotificationSchedulingResource>? NotificationsSchedulingResources { get; set; }
 
-    public int TotalResources => ResourcesDisorder == null ? 0 : ResourcesDisorder.Count;
 
 
 }

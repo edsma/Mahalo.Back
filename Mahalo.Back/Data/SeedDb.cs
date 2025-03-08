@@ -165,7 +165,11 @@ public class SeedDb
             var firstDisorder = _context.Disorders.First();
             var firstResource = _context.Resources.First();
             firstDisorder.ResourcesDisorder = new List<ResourceDisorder> { };
-            firstDisorder.ResourcesDisorder.Add(new ResourceDisorder { Name = "Resource Disorder Anxiety", CreationDate = _creationDate, IsActive = true, Resource = firstResource });
+            List<Resource> Listresource =  new List<Resource>();
+            Listresource.Add(firstResource);
+            firstDisorder.ResourcesDisorder.Add(new ResourceDisorder { Name = "Resource Disorder Anxiety", CreationDate = _creationDate, 
+                IsActive = true, Resource = Listresource
+            });
             _context.Disorders.Update(firstDisorder);
         }
 

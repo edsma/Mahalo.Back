@@ -19,6 +19,8 @@ namespace Mahalo.Back.UnitsOfWork.Implementation
 
         public override async Task<ActionResponse<Terapy>> GetAsync(int id) => await _TerapiesRepository.GetAsync(id);
 
+        public  async Task<ActionResponse<IEnumerable<Terapy>>> GetByUserAsync(PaginationDTO pagination, User user) => await _TerapiesRepository.GetByUserAsync(pagination, user);
+
         public override async Task<ActionResponse<IEnumerable<Terapy>>> GetAsync(PaginationDTO pagination) => await _TerapiesRepository.GetAsync(pagination);
 
         public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _TerapiesRepository.GetTotalRecordsAsync(pagination);

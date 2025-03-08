@@ -2,6 +2,7 @@
 using Mahalo.Back.Helpers;
 using Mahalo.Back.Repositories.Interfaces;
 using Mahalo.Shared.DTOs;
+using Mahalo.Shared.Entities;
 using Mahalo.Shared.Response;
 using Microsoft.EntityFrameworkCore;
 
@@ -162,4 +163,5 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
             Result = (int)count
         };
     }
+
 }

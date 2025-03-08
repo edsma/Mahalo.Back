@@ -86,6 +86,7 @@ builder.Services.AddScoped<ITerapiesUnitOfWork, TerapiesUnitOfWork>();
 
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
+builder.Services.AddScoped<IUploadFilesUnitOfWork, UploadFilesUnitOfWork>();
 
 builder.Services.AddScoped<IFileStorage, FileStorage>();
 
