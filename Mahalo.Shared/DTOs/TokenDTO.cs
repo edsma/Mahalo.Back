@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Mahalo.Shared.DTOs;
+﻿namespace Mahalo.Shared.DTOs;
 
 public class TokenDTO
 {
@@ -12,5 +6,5 @@ public class TokenDTO
 
     public DateTime Expiration { get; set; }
     public int UserType { get; set; }
-    public string Photo{ get; set; }
+    public string Photo { get; set; }
 }

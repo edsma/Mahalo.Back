@@ -1,7 +1,6 @@
 ﻿using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
 using Mahalo.Shared.Response;
-using System.Threading.Tasks;
 
 namespace Mahalo.Back.UnitsOfWork.Interfaces
 {

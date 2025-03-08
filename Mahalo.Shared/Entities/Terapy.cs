@@ -21,4 +21,8 @@ public class Terapy
 
     public City? City { get; set; }
     public Psychologist? Psychologist { get; set; }
+
+    public User? User { get; set; }
+
+
 }

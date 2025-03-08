@@ -1,18 +1,11 @@
 ﻿using Mahalo.Back.Data;
-using Mahalo.Back.Repositories.Interfaces;
-using Mahalo.Shared.DTOs;
-
-using Mahalo.Back.Data;
-
 using Mahalo.Back.Helpers;
-
 using Mahalo.Back.Repositories.Interfaces;
 using Mahalo.Shared.DTOs;
-
 using Mahalo.Shared.Entities;
 using Mahalo.Shared.Response;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mahalo.Back.Repositories.Implementation
 {

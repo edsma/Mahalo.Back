@@ -14,6 +14,8 @@ namespace Mahalo.Back.Repositories.Interfaces
 
         Task<ActionResponse<IEnumerable<Terapy>>> GetAsync(PaginationDTO pagination);
 
+        Task<ActionResponse<IEnumerable<Terapy>>> GetByUserAsync(PaginationDTO pagination, User user);
+
         Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
     }
 }

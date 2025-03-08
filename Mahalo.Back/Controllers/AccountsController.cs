@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Diagnostics.Metrics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -48,6 +47,7 @@ public class AccountsController : ControllerBase
             Email = model.Email,
             FirstName = model.FirstName,
             IsActive = true,
+            CreationDate = DateTime.Now,
             LastName = model.LastName,
             UserName = model.UserName,
             Photo = model.Photo,
@@ -126,11 +126,8 @@ public class AccountsController : ControllerBase
     private async Task<ActionResponse<string>> SendConfirmationEmailAsync(User user, string language)
     {
         var myToken = await _usersUnitOfWork.GenerateEmailConfirmationTokenAsync(user);
-        var tokenLink = Url.Action("ConfirmEmail", "accounts", new
-        {
-            userid = user.Id,
-            token = myToken
-        }, HttpContext.Request.Scheme, _configuration["Url_Frontend"]);
+        var tokenLink = $"http://{_configuration["Url_FrontendAngular"]}/#/confirm?userid={user.Email}&token={myToken}";
+
         var algo = _configuration["Url_Frontend"];
 
         if (language.ToLower() == "es")
@@ -144,7 +141,7 @@ public class AccountsController : ControllerBase
     public async Task<IActionResult> ConfirmEmailAsync(string userId, string token)
     {
         token = token.Replace(" ", "+");
-        var user = await _usersUnitOfWork.GetUserAsync(new Guid(userId));
+        var user = await _usersUnitOfWork.GetUserAsync(userId);
         if (user == null)
         {
             return NotFound();
@@ -157,7 +154,7 @@ public class AccountsController : ControllerBase
             return BadRequest(result.Errors.FirstOrDefault());
         }
 
-        return NoContent();
+        return Ok("OK");
     }
 
     [HttpPost("ResedToken")]
@@ -200,14 +197,14 @@ public class AccountsController : ControllerBase
                 //await _fileStorage.SaveFileAsync(photoBytes, ".jpg", "users");
             }
 
-            currentUser.UserType = (UserType) user.UserType;
+            currentUser.UserType = (UserType)user.UserType;
             currentUser.NumberDocument = user.DocumentNumber;
             currentUser.DocumentTypeId = user.DocumentTypeId;
             currentUser.FirstName = user.FirstName;
             currentUser.LastName = user.LastName;
             currentUser.PhoneNumber = user.PhoneNumber;
             currentUser.Photo = !string.IsNullOrEmpty(user.Photo) && user.Photo != currentUser.Photo ? user.Photo : currentUser.Photo;
-    
+
 
             var result = await _usersUnitOfWork.UpdateUserAsync(currentUser);
             if (result.Succeeded)
@@ -262,9 +259,17 @@ public class AccountsController : ControllerBase
         {
             return NotFound();
         }
+        CreateUserDTO create = new CreateUserDTO
+        {
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            UserName = user.UserName,
 
-        //var response = await SendRecoverEmailAsync(user, model.Language);
-        if (true)
+        };
+
+        var response = await SendRecoverEmailAsync(create, model.Language, user.Id);
+        if (response.WasSuccess)
         {
             return NoContent();
         }
@@ -275,13 +280,15 @@ public class AccountsController : ControllerBase
     [HttpPost("ResetPassword")]
     public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordDTO model)
     {
+
         var user = await _usersUnitOfWork.GetUserAsync(model.Email);
         if (user == null)
         {
             return NotFound();
         }
 
-        var result = await _usersUnitOfWork.ResetPasswordAsync(user, model.Token, model.NewPassword);
+        var newtoken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(user);
+        var result = await _usersUnitOfWork.ResetPasswordAsync(user, newtoken, model.NewPassword);
         if (result.Succeeded)
         {
             return NoContent();
@@ -291,7 +298,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("SendRecoverEmailAsync")]
-    public async Task<ActionResponse<string>> SendRecoverEmailAsync(CreateUserDTO user, string language)
+    public async Task<ActionResponse<string>> SendRecoverEmailAsync(CreateUserDTO user, string language, string idUser)
     {
         User searchUser = new User
         {
@@ -301,12 +308,11 @@ public class AccountsController : ControllerBase
             LastName = user.LastName,
             UserName = user.UserName,
         };
+
         var myToken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(searchUser);
-        var tokenLink = Url.Action("ResetPassword", "accounts", new
-        {
-            userid = searchUser.Id,
-            token = myToken
-        }, HttpContext.Request.Scheme, _configuration["Url_Frontend"]);
+        var tokenLink = $"http://{_configuration["Url_FrontendAngular"]}/#/reset?userid={user.Email}&token={myToken}";
+
+
 
         if (language == "es")
         {

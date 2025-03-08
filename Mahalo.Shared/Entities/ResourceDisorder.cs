@@ -20,5 +20,8 @@ public class ResourceDisorder
     public bool IsActive { get; set; }
 
     public Disorder Disorder { get; set; } = null!;
-    public Resource Resource { get; set; } = null!;
+    public ICollection<Resource> Resource { get; set; } = null!;
+
+
+    public int TotalResources => Resource == null ? 0 : Resource.Count;
 }

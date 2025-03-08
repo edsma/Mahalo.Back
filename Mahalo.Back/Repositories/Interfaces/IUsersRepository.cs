@@ -2,7 +2,6 @@
 using Mahalo.Shared.Entities;
 using Mahalo.Shared.Response;
 using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
 
 namespace Mahalo.Back.Repositories.Interfaces
 {

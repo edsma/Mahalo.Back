@@ -39,6 +39,30 @@ namespace Mahalo.Back.Repositories.Implementation
             };
         }
 
+        public  async Task<ActionResponse<IEnumerable<Terapy>>> GetByUserAsync(PaginationDTO pagination, User user)
+        {
+            var queryable = _context.Terapies
+                .Include(x => x.City)
+                .Include(x => x.Psychologist)
+                .OrderBy(x => x.HourTerapy)
+                .Where(x=> x.User.Id.Equals(user.Id))
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(pagination.Filter))
+            {
+                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+            }
+
+            return new ActionResponse<IEnumerable<Terapy>>
+            {
+                WasSuccess = true,
+                Result = await queryable
+                    .OrderBy(x => x.HourTerapy)
+                    .Paginate(pagination)
+                    .ToListAsync()
+            };
+        }
+
         public override async Task<ActionResponse<IEnumerable<Terapy>>> GetAsync()
         {
             var terapies = await _context.Terapies
@@ -61,12 +85,19 @@ namespace Mahalo.Back.Repositories.Implementation
         public override async Task<ActionResponse<IEnumerable<Terapy>>> GetAsync(PaginationDTO pagination)
         {
             var queryable = _context.Terapies
+                .Include(x=> x.City)
+                .Include(x=> x.Psychologist)
                 .OrderBy(x => x.HourTerapy)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
                 queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(pagination.UserId))
+            {
+                queryable = queryable.Where(x => x.User.Id.ToLower().Contains(pagination.UserId.ToLower()));
             }
 
             return new ActionResponse<IEnumerable<Terapy>>

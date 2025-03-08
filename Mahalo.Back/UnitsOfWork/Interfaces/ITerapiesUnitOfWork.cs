@@ -13,6 +13,7 @@ namespace Mahalo.Back.UnitsOfWork.Interfaces
         Task<IEnumerable<Terapy>> GetComboAsync();
 
         Task<ActionResponse<IEnumerable<Terapy>>> GetAsync(PaginationDTO pagination);
+        Task<ActionResponse<IEnumerable<Terapy>>> GetByUserAsync(PaginationDTO pagination, User user);
 
         Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
     }

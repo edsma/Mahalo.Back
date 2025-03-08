@@ -51,7 +51,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Country", b =>
@@ -78,7 +78,7 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Disorder", b =>
@@ -110,7 +110,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Disorders");
+                    b.ToTable("Disorders", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.DocumentType", b =>
@@ -139,7 +139,7 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("DocumentTypes");
+                    b.ToTable("DocumentTypes", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.NotificationHistory", b =>
@@ -166,7 +166,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("ResourceId");
 
-                    b.ToTable("NotificationsHistory");
+                    b.ToTable("NotificationsHistory", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.NotificationScheduling", b =>
@@ -199,7 +199,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("NotificationsScheduling");
+                    b.ToTable("NotificationsScheduling", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.NotificationSchedulingResource", b =>
@@ -232,7 +232,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("ResourceId");
 
-                    b.ToTable("NotificationsSchedulingResources");
+                    b.ToTable("NotificationsSchedulingResources", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Psychologist", b =>
@@ -284,7 +284,7 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Psychologists");
+                    b.ToTable("Psychologists", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Resource", b =>
@@ -297,6 +297,11 @@ namespace Mahalo.Back.Migrations
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -314,6 +319,9 @@ namespace Mahalo.Back.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("ResourceDisorderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -327,9 +335,11 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
+                    b.HasIndex("ResourceDisorderId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("Resources");
+                    b.ToTable("Resources", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.ResourceDisorder", b =>
@@ -354,9 +364,6 @@ namespace Mahalo.Back.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("ResourceId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DisorderId");
@@ -364,9 +371,7 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("ResourceId");
-
-                    b.ToTable("ResourcesDisorder");
+                    b.ToTable("ResourcesDisorder", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.State", b =>
@@ -398,7 +403,7 @@ namespace Mahalo.Back.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("States");
+                    b.ToTable("States", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Terapy", b =>
@@ -440,7 +445,7 @@ namespace Mahalo.Back.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Terapies");
+                    b.ToTable("Terapies", (string)null);
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.User", b =>
@@ -751,6 +756,12 @@ namespace Mahalo.Back.Migrations
 
             modelBuilder.Entity("Mahalo.Shared.Entities.Resource", b =>
                 {
+                    b.HasOne("Mahalo.Shared.Entities.ResourceDisorder", null)
+                        .WithMany("Resource")
+                        .HasForeignKey("ResourceDisorderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Mahalo.Shared.Entities.User", null)
                         .WithMany("Resources")
                         .HasForeignKey("UserId")
@@ -765,15 +776,7 @@ namespace Mahalo.Back.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Mahalo.Shared.Entities.Resource", "Resource")
-                        .WithMany("ResourcesDisorder")
-                        .HasForeignKey("ResourceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Disorder");
-
-                    b.Navigation("Resource");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.State", b =>
@@ -799,7 +802,7 @@ namespace Mahalo.Back.Migrations
                         .HasForeignKey("PsychologistId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Mahalo.Shared.Entities.User", null)
+                    b.HasOne("Mahalo.Shared.Entities.User", "User")
                         .WithMany("Terapies")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -807,6 +810,8 @@ namespace Mahalo.Back.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Psychologist");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.User", b =>
@@ -919,8 +924,11 @@ namespace Mahalo.Back.Migrations
                     b.Navigation("NotificationsHistory");
 
                     b.Navigation("NotificationsSchedulingResources");
+                });
 
-                    b.Navigation("ResourcesDisorder");
+            modelBuilder.Entity("Mahalo.Shared.Entities.ResourceDisorder", b =>
+                {
+                    b.Navigation("Resource");
                 });
 
             modelBuilder.Entity("Mahalo.Shared.Entities.State", b =>

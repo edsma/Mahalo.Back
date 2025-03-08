@@ -1,11 +1,7 @@
-﻿using Mahalo.Back.UnitsOfWork.Implementation;
-using Mahalo.Back.UnitsOfWork.Interfaces;
+﻿using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Mahalo.Back.Controllers;
 
@@ -28,32 +24,39 @@ public class CitiesController : GenericController<City>
     [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
-        var response = await _citiesUnitOfWork.GetAsync(pagination);
-        var action = await _citiesUnitOfWork.GetTotalRecordsAsync(pagination);
-        if (response.WasSuccess)
+        try
         {
-            ResponseQuery<City> query = new ResponseQuery<City>
+            var response = await _citiesUnitOfWork.GetAsync(pagination);
+            var action = await _citiesUnitOfWork.GetTotalRecordsAsync(pagination);
+            if (response.WasSuccess)
             {
-                Data = response.Result!.ToList(),
-                total = action.Result.ToString()
-            };
-            return Ok(query);
+                ResponseQuery<City> query = new ResponseQuery<City>
+                {
+                    Data = response.Result!.ToList(),
+                    total = action.Result.ToString()
+                };
+                return Ok(query);
+            }
+            return BadRequest();
         }
-        return BadRequest();
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
     }
 
     [HttpPost("PostAsyncDto")]
-    public  async Task<IActionResult> PostAsync(CityDto model)
+    public async Task<IActionResult> PostAsync(CityDto model)
     {
         var state = await _statesUnitOfWork.GetAsync(model.StateId);
-        
+
         var response = await _UnitOfWork.AddAsync(new City
         {
             CreationDate = DateTime.Now,
             IsActive = model.IsActive,
             Name = model.Name!,
             State = state.Result!,
-            
+
         });
         if (response.WasSuccess)
         {

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mahalo.Back", "Mahalo.Back\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mahalo.Shared", "Mahalo.Shared\Mahalo.Shared.csproj", "{8107A6F1-5C5E-481C-BEDB-C3528F8FEE7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahalo.Test", "Mahalo.Test\Mahalo.Test.csproj", "{3CA8D0A6-3DC5-4AE4-A157-9A664C39FD1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{8107A6F1-5C5E-481C-BEDB-C3528F8FEE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8107A6F1-5C5E-481C-BEDB-C3528F8FEE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8107A6F1-5C5E-481C-BEDB-C3528F8FEE7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CA8D0A6-3DC5-4AE4-A157-9A664C39FD1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CA8D0A6-3DC5-4AE4-A157-9A664C39FD1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CA8D0A6-3DC5-4AE4-A157-9A664C39FD1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CA8D0A6-3DC5-4AE4-A157-9A664C39FD1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,26 +10,26 @@ namespace Mahalo.Back.Data
         {
         }
 
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<Disorder> Disorders { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<Disorder> Disorders { get; set; }
 
-        public DbSet<DocumentType> DocumentTypes { get; set; }
-        public DbSet<NotificationHistory> NotificationsHistory { get; set; }
+        public virtual DbSet<DocumentType> DocumentTypes { get; set; }
+        public virtual DbSet<NotificationHistory> NotificationsHistory { get; set; }
 
-        public DbSet<NotificationSchedulingResource> NotificationsSchedulingResources { get; set; }
+        public virtual DbSet<NotificationSchedulingResource> NotificationsSchedulingResources { get; set; }
 
-        public DbSet<NotificationScheduling> NotificationsScheduling { get; set; }
+        public virtual DbSet<NotificationScheduling> NotificationsScheduling { get; set; }
 
-        public DbSet<Psychologist> Psychologists { get; set; }
+        public virtual DbSet<Psychologist> Psychologists { get; set; }
 
-        public DbSet<Resource> Resources { get; set; }
+        public virtual DbSet<Resource> Resources { get; set; }
 
-        public DbSet<ResourceDisorder> ResourcesDisorder { get; set; }
+        public virtual DbSet<ResourceDisorder> ResourcesDisorder { get; set; }
 
-        public DbSet<State> States { get; set; }
-        public DbSet<Terapy> Terapies { get; set; }
-        public DbSet<User> Users { get; set; }
+        public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<Terapy> Terapies { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

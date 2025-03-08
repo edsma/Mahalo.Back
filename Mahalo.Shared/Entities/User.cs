@@ -1,7 +1,6 @@
 ﻿using Mahalo.Shared.Enums;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
 namespace Mahalo.Shared.Entities;
 

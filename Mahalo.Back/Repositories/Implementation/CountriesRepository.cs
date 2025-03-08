@@ -89,7 +89,7 @@ public class CountriesRepository : GenericRepository<Country>, ICountriesReposit
             queryable = queryable.Where(x => x.Name.Contains(pagination.Filter));
         }
 
-        int count =  await queryable.CountAsync();
+        int count = await queryable.CountAsync();
         return new ActionResponse<int>
         {
             WasSuccess = true,

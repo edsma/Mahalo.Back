@@ -1,5 +1,4 @@
-﻿using Mahalo.Back.Repositories.Implementation;
-using Mahalo.Back.Repositories.Interfaces;
+﻿using Mahalo.Back.Repositories.Interfaces;
 using Mahalo.Back.UnitsOfWork.Interfaces;
 using Mahalo.Shared.DTOs;
 using Mahalo.Shared.Entities;
@@ -19,6 +18,8 @@ namespace Mahalo.Back.UnitsOfWork.Implementation
         public override async Task<ActionResponse<IEnumerable<Terapy>>> GetAsync() => await _TerapiesRepository.GetAsync();
 
         public override async Task<ActionResponse<Terapy>> GetAsync(int id) => await _TerapiesRepository.GetAsync(id);
+
+        public  async Task<ActionResponse<IEnumerable<Terapy>>> GetByUserAsync(PaginationDTO pagination, User user) => await _TerapiesRepository.GetByUserAsync(pagination, user);
 
         public override async Task<ActionResponse<IEnumerable<Terapy>>> GetAsync(PaginationDTO pagination) => await _TerapiesRepository.GetAsync(pagination);
 

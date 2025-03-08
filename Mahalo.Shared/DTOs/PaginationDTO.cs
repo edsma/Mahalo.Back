@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Mahalo.Shared.DTOs
 {
@@ -15,5 +11,8 @@ namespace Mahalo.Shared.DTOs
         public int RecordsNumber { get; set; } = 6;
 
         public string? Filter { get; set; }
+
+        public string? UserId { get; set; }
+
     }
 }
